@@ -30,6 +30,7 @@ async function getHomeData() {
       orderBy: { viewCount: "desc" },
       include: {
         category: true,
+        tags: true,
         reviews: { select: { rating: true } },
         _count: { select: { reviews: true, bookmarks: true } },
       },
@@ -45,6 +46,7 @@ async function getHomeData() {
       orderBy: { createdAt: "desc" },
       include: {
         category: true,
+        tags: true,
         reviews: { select: { rating: true } },
         _count: { select: { reviews: true, bookmarks: true } },
       },

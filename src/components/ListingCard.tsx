@@ -171,7 +171,7 @@ export function ListingCard({
               <div className="mt-1.5 flex items-center gap-2">
                 <StarRating rating={listing.avgRating ?? 0} size="sm" />
                 <span className="text-xs text-slate-500 dark:text-slate-400">
-                  ({listing._count.reviews})
+                  ({listing._count?.reviews ?? 0})
                 </span>
               </div>
             </div>
@@ -201,7 +201,7 @@ export function ListingCard({
           {/* Category */}
           {listing.category && (
             <Badge variant="outline" className="text-xs">
-              {listing.category.name}
+              {listing.category?.name}
             </Badge>
           )}
 
@@ -216,7 +216,7 @@ export function ListingCard({
           </Badge>
 
           {/* Tags */}
-          {listing.tags.slice(0, 2).map((tag) => (
+          {(listing.tags ?? []).slice(0, 2).map((tag) => (
             <Badge key={tag.id} variant="secondary" className="text-xs">
               {tag.name}
             </Badge>

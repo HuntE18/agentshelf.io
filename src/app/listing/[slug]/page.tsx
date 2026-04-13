@@ -95,6 +95,7 @@ export default async function ListingPage({ params }: Props) {
     orderBy: { viewCount: "desc" },
     include: {
       category: true,
+      tags: true,
       reviews: { select: { rating: true } },
       _count: { select: { reviews: true, bookmarks: true } },
     },
@@ -234,7 +235,7 @@ export default async function ListingPage({ params }: Props) {
             <ReviewSection
               listingSlug={listing.slug}
               listingName={listing.name}
-              reviews={listing.reviews.map((r) => ({
+              reviews={(listing.reviews ?? []).map((r) => ({
                 id: r.id,
                 rating: r.rating,
                 body: r.body,
