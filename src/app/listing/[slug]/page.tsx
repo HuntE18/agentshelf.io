@@ -104,7 +104,7 @@ export default async function ListingPage({ params }: Props) {
     <div className="min-h-screen bg-background">
       {/* Hero */}
       <div
-        className={`border-b border-border ${listing.spotlight ? "bg-gradient-to-br from-amber-50 to-indigo-50 dark:from-slate-900 dark:to-indigo-950" : "bg-card"}`}
+        className={`border-b border-border ${listing.premiumTier === "SPOTLIGHT" ? "bg-gradient-to-br from-amber-50 to-indigo-50 dark:from-slate-900 dark:to-indigo-950" : "bg-card"}`}
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10">
           <div className="flex flex-col sm:flex-row items-start gap-6">
@@ -112,7 +112,7 @@ export default async function ListingPage({ params }: Props) {
             <div className="shrink-0">
               {listing.logoUrl ? (
                 <div
-                  className={`relative h-20 w-20 rounded-2xl overflow-hidden border-2 ${listing.spotlight ? "border-amber-400 shadow-lg shadow-amber-200/50 dark:shadow-amber-900/30" : "border-border"}`}
+                  className={`relative h-20 w-20 rounded-2xl overflow-hidden border-2 ${listing.premiumTier === "SPOTLIGHT" ? "border-amber-400 shadow-lg shadow-amber-200/50 dark:shadow-amber-900/30" : "border-border"}`}
                 >
                   <Image
                     src={listing.logoUrl}
@@ -137,7 +137,7 @@ export default async function ListingPage({ params }: Props) {
                 >
                   {listing.category.icon} {listing.category.name}
                 </Link>
-                {listing.spotlight && (
+                {listing.premiumTier === "SPOTLIGHT" && (
                   <span className="rounded-full border border-amber-400/50 bg-amber-50 dark:bg-amber-900/20 px-3 py-1 text-xs font-semibold text-amber-600 dark:text-amber-400">
                     ⭐ Top Shelf
                   </span>
@@ -149,9 +149,9 @@ export default async function ListingPage({ params }: Props) {
                 )}
                 <span
                   className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                    listing.pricingModel === "Free"
+                    listing.pricingModel === "FREE"
                       ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                      : listing.pricingModel === "Open Source"
+                      : listing.pricingModel === "OPEN_SOURCE"
                         ? "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400"
                         : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400"
                   }`}
@@ -323,7 +323,7 @@ export default async function ListingPage({ params }: Props) {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {relatedListings.map((related) => (
-                <ListingCard key={related.id} listing={related} />
+                <ListingCard key={related.id} listing={related as any} />
               ))}
             </div>
           </section>

@@ -26,8 +26,8 @@ export async function POST(req: NextRequest) {
     // Upsert subscriber (idempotent)
     await prisma.newsletterSubscriber.upsert({
       where: { email },
-      update: { updatedAt: new Date() },
-      create: { email, subscribedAt: new Date() },
+      update: {},
+      create: { email },
     });
 
     return NextResponse.json({ success: true }, { status: 200 });

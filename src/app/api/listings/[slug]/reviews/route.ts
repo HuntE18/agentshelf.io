@@ -65,7 +65,7 @@ export async function GET(
 
 const createReviewSchema = z.object({
   rating: z.number().int().min(1).max(5),
-  title: z.string().min(5).max(100).optional(),
+  title: z.string().min(5).max(100),
   body: z.string().min(20).max(5000),
   pros: z.array(z.string().max(100)).max(5).optional(),
   cons: z.array(z.string().max(100)).max(5).optional(),

@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useState, useEffect, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ListingCard } from "@/components/ListingCard";
@@ -32,7 +33,7 @@ const SORT_OPTIONS = [
   { value: "a_z", label: "A–Z" },
 ];
 
-export default function BrowsePage() {
+function BrowseContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -306,7 +307,7 @@ export default function BrowsePage() {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
                 {listings.map((listing) => (
-                  <ListingCard key={listing.id} listing={listing} />
+                  <ListingCard key={listing.id} listing={listing as any} />
                 ))}
               </div>
             )}
@@ -361,5 +362,13 @@ export default function BrowsePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function BrowsePage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-background" />}>
+      <BrowseContent />
+    </Suspense>
   );
 }

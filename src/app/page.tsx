@@ -5,6 +5,8 @@ import { ListingCard } from "@/components/ListingCard";
 import { CategoryCard } from "@/components/CategoryCard";
 import { SearchBar } from "@/components/SearchBar";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "AgentShelf — AI Agent & Tool Directory",
   description:
@@ -148,7 +150,7 @@ export default async function HomePage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {featuredListings.map((listing) => (
-                <ListingCard key={listing.id} listing={listing} />
+                <ListingCard key={listing.id} listing={listing as any} />
               ))}
             </div>
           </div>
@@ -212,7 +214,7 @@ export default async function HomePage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {recentListings.map((listing) => (
-                <ListingCard key={listing.id} listing={listing} />
+                <ListingCard key={listing.id} listing={listing as any} />
               ))}
             </div>
           </div>

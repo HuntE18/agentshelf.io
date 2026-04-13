@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
-import { resend } from "@/lib/resend";
+import { getResend } from "@/lib/resend";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100),
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
 
     // Send notification email via Resend (optional — swallow errors)
     if (process.env.RESEND_API_KEY && process.env.CONTACT_EMAIL) {
-      resend.emails
+      getResend().emails
         .send({
           from: "AgentShelf <noreply@agentshelf.io>",
           to: process.env.CONTACT_EMAIL,
