@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 248 250 252; /* #F8FAFC */
+    --foreground: 15 23 42;    /* #0F172A */
+    --card: 255 255 255;
+    --card-foreground: 15 23 42;
+    --primary: 79 70 229;      /* #4F46E5 */
+    --primary-foreground: 255 255 255;
+    --secondary: 241 245 249;
+    --secondary-foreground: 15 23 42;
+    --muted: 241 245 249;
+    --muted-foreground: 100 116 139;
+    --accent: 20 184 166;      /* #14B8A6 */
+    --accent-foreground: 255 255 255;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --border: 226 232 240;
+    --input: 226 232 240;
+    --ring: 79 70 229;
+    --radius: 0.5rem;
+    --gold: 245 158 11;        /* #F59E0B */
+  }
+  .dark {
+    --background: 15 23 42;    /* #0F172A */
+    --foreground: 248 250 252;
+    --card: 30 41 59;
+    --card-foreground: 248 250 252;
+    --primary: 99 102 241;
+    --primary-foreground: 255 255 255;
+    --secondary: 30 41 59;
+    --secondary-foreground: 248 250 252;
+    --muted: 30 41 59;
+    --muted-foreground: 148 163 184;
+    --accent: 20 184 166;
+    --accent-foreground: 255 255 255;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --border: 51 65 85;
+    --input: 51 65 85;
+    --ring: 99 102 241;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+  code, pre, kbd {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer utilities {
+  .bg-background { background-color: rgb(var(--background)); }
+  .bg-card { background-color: rgb(var(--card)); }
+  .bg-primary { background-color: rgb(var(--primary)); }
+  .bg-secondary { background-color: rgb(var(--secondary)); }
+  .bg-muted { background-color: rgb(var(--muted)); }
+  .bg-accent { background-color: rgb(var(--accent)); }
+  .bg-destructive { background-color: rgb(var(--destructive)); }
+  .text-foreground { color: rgb(var(--foreground)); }
+  .text-card-foreground { color: rgb(var(--card-foreground)); }
+  .text-primary { color: rgb(var(--primary)); }
+  .text-primary-foreground { color: rgb(var(--primary-foreground)); }
+  .text-secondary-foreground { color: rgb(var(--secondary-foreground)); }
+  .text-muted-foreground { color: rgb(var(--muted-foreground)); }
+  .text-accent { color: rgb(var(--accent)); }
+  .text-accent-foreground { color: rgb(var(--accent-foreground)); }
+  .text-destructive { color: rgb(var(--destructive)); }
+  .text-gold { color: rgb(var(--gold)); }
+  .border-border { border-color: rgb(var(--border)); }
+  .border-primary { border-color: rgb(var(--primary)); }
+  .border-accent { border-color: rgb(var(--accent)); }
+  .ring-ring { --tw-ring-color: rgb(var(--ring)); }
+
+  .gold-ring {
+    box-shadow: 0 0 0 2px rgb(var(--gold)), 0 0 20px rgba(245, 158, 11, 0.3);
+  }
+  .shelf-gradient {
+    background: linear-gradient(135deg, rgb(var(--primary)) 0%, rgb(var(--accent)) 100%);
+  }
+  .text-gradient {
+    background: linear-gradient(135deg, rgb(var(--primary)) 0%, rgb(var(--accent)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
