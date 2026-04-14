@@ -14,15 +14,6 @@ export const metadata: Metadata = {
     "Every AI agent, one shelf. Browse, review, and collect the best AI tools — curated for builders, creators, and curious minds.",
 };
 
-const POPULAR_CATEGORIES = [
-  "Coding",
-  "Writing",
-  "Image Generation",
-  "Research",
-  "Productivity",
-  "Data Analysis",
-];
-
 async function getHomeData() {
   const [featuredListings, categories, recentListings] = await Promise.all([
     prisma.listing.findMany({
@@ -104,13 +95,13 @@ export default async function HomePage() {
             <SearchBar />
           </div>
           <div className="flex flex-wrap justify-center gap-2">
-            {POPULAR_CATEGORIES.map((cat) => (
+            {categories.slice(0, 6).map((cat) => (
               <Link
-                key={cat}
-                href={`/browse?category=${encodeURIComponent(cat)}`}
-                className="rounded-full border border-slate-700 bg-slate-800/50 px-4 py-1.5 text-sm text-slate-300 hover:border-indigo-500 hover:text-indigo-300 hover:bg-indigo-500/10 transition-all duration-200"
+                key={cat.id}
+                href={`/browse?category=${encodeURIComponent(cat.name)}`}
+                className="inline-flex items-center gap-1.5 rounded-full bg-white/10 border border-white/20 px-4 py-2 text-sm font-medium text-white hover:bg-white/20 transition-all backdrop-blur-sm"
               >
-                {cat}
+                {cat.name}
               </Link>
             ))}
           </div>

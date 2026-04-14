@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { TUTORIALS } from "@/content/tutorials";
+import { ShareButtons } from "@/components/ShareButtons";
 
 interface Props {
   params: { slug: string };
@@ -75,6 +76,18 @@ export default function TutorialPage({ params }: Props) {
               </p>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Article meta bar */}
+      <div className="border-b border-border bg-secondary/30">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4 flex-wrap">
+          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <span>✍️ {tutorial.author}</span>
+            <span>·</span>
+            <span>🕐 {tutorial.readTime}</span>
+          </div>
+          <ShareButtons title={tutorial.title} slug={tutorial.slug} />
         </div>
       </div>
 

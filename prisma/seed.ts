@@ -2384,6 +2384,19 @@ const LISTINGS: ListingInput[] = [
 async function main() {
   console.log("🌱 Seeding AgentShelf database...");
 
+  // ─── Admin account ────────────────────────────────────────────────────────────
+  console.log("Setting up admin account...");
+  await prisma.user.upsert({
+    where: { email: "hunterpadlo@gmail.com" },
+    update: { role: "ADMIN" },
+    create: {
+      email: "hunterpadlo@gmail.com",
+      name: "Hunter",
+      role: "ADMIN",
+    },
+  });
+  console.log("Admin account ready: hunterpadlo@gmail.com");
+
   // ── Step 1: Upsert categories ────────────────────────────────────────────
   console.log("  → Upserting categories...");
   const categoryMap = new Map<string, string>(); // slug → id
