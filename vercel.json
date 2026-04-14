@@ -1,3 +1,11 @@
 {
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "agentshelf.io" }],
+      "destination": "https://www.agentshelf.io/:path*",
+      "permanent": true
+    }
+  ]
 }
