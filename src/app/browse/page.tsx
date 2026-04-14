@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense } from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ListingCard } from "@/components/ListingCard";
 import { ListingCardSkeleton } from "@/components/ListingCardSkeleton";
@@ -50,6 +50,8 @@ function BrowseContent() {
   const page = Number(searchParams.get("page") || "1");
   const PAGE_SIZE = 12;
 
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   const updateParam = useCallback(
     (key: string, value: string | string[] | null) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -92,7 +94,7 @@ function BrowseContent() {
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  }, [query, categoryParam, sort, page, searchParams.toString()]);
+  }, [query, categoryParam, pricingParams.join(","), sort, page]);
 
   const totalPages = Math.ceil(total / PAGE_SIZE);
 
@@ -129,8 +131,10 @@ function BrowseContent() {
                 defaultValue={query}
                 onChange={(e) => {
                   const val = e.target.value;
-                  const t = setTimeout(() => updateParam("q", val || null), 400);
-                  return () => clearTimeout(t);
+                  if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
+                  searchTimeoutRef.current = setTimeout(() => {
+                    updateParam("q", val || null);
+                  }, 400);
                 }}
                 className="w-full rounded-lg border border-input bg-background pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
               />

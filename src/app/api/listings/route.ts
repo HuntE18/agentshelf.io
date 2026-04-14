@@ -12,9 +12,10 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = req.nextUrl;
 
-    const categoryId = searchParams.get("categoryId") ?? undefined;
-    const search = searchParams.get("search") ?? undefined;
-    const pricingModel = searchParams.get("pricingModel") ?? undefined;
+    // Read params using the names the browse page actually sends
+    const categoryName = searchParams.get("category") ?? undefined;
+    const search = searchParams.get("q") ?? undefined;
+    const pricingDisplayValues = searchParams.getAll("pricing");
     const minRating = searchParams.get("minRating")
       ? parseFloat(searchParams.get("minRating")!)
       : undefined;
@@ -26,11 +27,22 @@ export async function GET(req: NextRequest) {
     );
     const skip = (page - 1) * limit;
 
+    // Map display pricing names → Prisma enum values
+    const pricingDisplayToEnum: Record<string, string> = {
+      Free: "FREE",
+      Freemium: "FREEMIUM",
+      Paid: "PAID",
+      "Open Source": "OPEN_SOURCE",
+    };
+    const pricingEnumValues = pricingDisplayValues
+      .map((p) => pricingDisplayToEnum[p])
+      .filter(Boolean);
+
     // Build where clause
     const where: any = {
       status: "APPROVED",
-      ...(categoryId && { categoryId }),
-      ...(pricingModel && { pricingModel }),
+      ...(categoryName && { category: { name: categoryName } }),
+      ...(pricingEnumValues.length > 0 && { pricingModel: { in: pricingEnumValues } }),
       ...(minRating !== undefined && { avgRating: { gte: minRating } }),
       ...(search && {
         OR: [
@@ -78,7 +90,7 @@ export async function GET(req: NextRequest) {
     ]);
 
     return NextResponse.json({
-      data: listings,
+      listings,
       total,
       page,
       limit,
