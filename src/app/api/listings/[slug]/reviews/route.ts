@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/lib/auth";
+import { sanitizeText } from "@/lib/sanitize";
 
 // ─── GET — paginated reviews for listing ─────────────────────────────────────
 
@@ -117,15 +118,17 @@ export async function POST(
       );
     }
 
-    const { pros, cons, ...reviewData } = result.data;
+    const { pros, cons, title, body: reviewBody, ...restData } = result.data;
 
     // Create review and update listing stats in a transaction
     const review = await prisma.$transaction(async (tx) => {
       const newReview = await tx.review.create({
         data: {
-          ...reviewData,
-          pros: pros ? JSON.stringify(pros) : null,
-          cons: cons ? JSON.stringify(cons) : null,
+          ...restData,
+          title: sanitizeText(title),
+          body: sanitizeText(reviewBody),
+          pros: pros ? JSON.stringify(pros.map(sanitizeText)) : null,
+          cons: cons ? JSON.stringify(cons.map(sanitizeText)) : null,
           listingId: listing.id,
           authorId: userId,
         },

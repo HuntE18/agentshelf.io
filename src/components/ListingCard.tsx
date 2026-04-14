@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Heart } from "lucide-react";
 import { useSession } from "next-auth/react";
@@ -14,6 +13,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { StarRating } from "@/components/StarRating";
 import { cn } from "@/lib/utils";
 import { toast } from "@/hooks/use-toast";
+import { ListingLogo } from "@/components/ListingLogo";
 
 // ─── Pricing label helpers ────────────────────────────────────────────────────
 
@@ -115,11 +115,6 @@ export function ListingCard({
     }
   };
 
-  // Clearbit logo fallback
-  const logoSrc =
-    listing.logoUrl ||
-    `https://logo.clearbit.com/${new URL(listing.websiteUrl).hostname}`;
-
   return (
     <Link href={`/listing/${listing.slug}`} className="block h-full">
       <Card
@@ -147,18 +142,7 @@ export function ListingCard({
         <CardContent className="p-5">
           <div className="flex items-start gap-4">
             {/* Logo */}
-            <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl border border-border bg-slate-50 dark:bg-slate-900">
-              <Image
-                src={logoSrc}
-                alt={`${listing.name} logo`}
-                fill
-                className="object-contain p-1"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(listing.name)}&background=4F46E5&color=fff&size=128`;
-                }}
-              />
-            </div>
+            <ListingLogo name={listing.name} websiteUrl={listing.websiteUrl} size={56} className="flex-shrink-0" />
 
             {/* Name, tagline, rating */}
             <div className="flex-1 min-w-0">

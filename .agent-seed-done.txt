@@ -1,0 +1,31 @@
+Seed expansion complete.
+
+Total listings: 121
+Total categories: 17
+
+Categories breakdown:
+  chatbots-llms: 9 listings
+  code-dev-tools: 15 listings
+  image-generation: 7 listings
+  video-audio: 6 listings
+  writing-content: 10 listings
+  autonomous-agents: 10 listings
+  workflow-automation: 5 listings
+  productivity: 7 listings
+  search-research: 7 listings (NEW)
+  data-analytics: 5 listings (NEW)
+  design-creative: 7 listings (NEW)
+  sales-marketing: 6 listings (NEW)
+  customer-support: 5 listings (NEW)
+  education: 6 listings (NEW)
+  meeting-collab: 6 listings (NEW)
+  3d-spatial: 5 listings (NEW)
+  music-audio: 5 listings (NEW)
+
+Changes made:
+- All seeded reviews removed (SEED_REVIEWS array and Steps 3, 4, 5 in main() deleted)
+- All user creation removed (no prisma.user calls remain)
+- All premiumTier values set to PremiumTier.BASIC (no FEATURED or SPOTLIGHT)
+- 9 new categories added
+- ~70 new real AI tool listings added (from ~50 to 121 total)
+- TypeScript check: passes with no errors

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
+import { rateLimit } from "@/lib/rate-limit";
+import { headers } from "next/headers";
 
 const signUpSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -16,6 +18,13 @@ const signUpSchema = z.object({
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    const ip = headers().get("x-forwarded-for") ?? "unknown";
+    if (!rateLimit(`signup:${ip}`, 3, 60 * 60 * 1000)) {
+      return NextResponse.json(
+        { error: "Too many sign-up attempts. Please try again later." },
+        { status: 429 }
+      );
+    }
     const result = signUpSchema.safeParse(body);
 
     if (!result.success) {
@@ -44,7 +53,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Hash password and create user
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 12);
 
     await prisma.user.create({
       data: {

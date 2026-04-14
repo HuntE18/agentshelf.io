@@ -4,6 +4,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/lib/auth";
 import { slugify } from "@/lib/utils";
+import { rateLimit } from "@/lib/rate-limit";
 
 // ─── GET — list listings with filters ────────────────────────────────────────
 
@@ -116,6 +117,13 @@ export async function POST(req: NextRequest) {
     const session = await getServerSession(authOptions);
     if (!session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    if (!rateLimit(`submit:${(session.user as any).id}`, 5, 24 * 60 * 60 * 1000)) {
+      return NextResponse.json(
+        { error: "Too many listing submissions. Please try again tomorrow." },
+        { status: 429 }
+      );
     }
 
     const body = await req.json();

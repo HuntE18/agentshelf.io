@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getResend } from "@/lib/resend";
+import { sanitizeText } from "@/lib/sanitize";
+import { rateLimit } from "@/lib/rate-limit";
+import { headers } from "next/headers";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100),
@@ -16,6 +19,13 @@ const contactSchema = z.object({
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    const ip = headers().get("x-forwarded-for") ?? "unknown";
+    if (!rateLimit(`contact:${ip}`, 3, 60 * 60 * 1000)) {
+      return NextResponse.json(
+        { error: "Too many contact submissions. Please try again later." },
+        { status: 429 }
+      );
+    }
     const result = contactSchema.safeParse(body);
 
     if (!result.success) {
@@ -28,7 +38,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { name, email, subject, message } = result.data;
+    const { email, subject } = result.data;
+    const name = sanitizeText(result.data.name);
+    const message = sanitizeText(result.data.message);
 
     // Save to database
     await prisma.contactSubmission.create({

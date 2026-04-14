@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
+import { ListingLogo } from "@/components/ListingLogo";
 import { prisma } from "@/lib/prisma";
 import { BookmarkButton } from "@/components/BookmarkButton";
 import { ReviewSection } from "@/components/ReviewSection";
@@ -111,22 +111,7 @@ export default async function ListingPage({ params }: Props) {
           <div className="flex flex-col sm:flex-row items-start gap-6">
             {/* Logo */}
             <div className="shrink-0">
-              {listing.logoUrl ? (
-                <div
-                  className={`relative h-20 w-20 rounded-2xl overflow-hidden border-2 ${listing.premiumTier === "SPOTLIGHT" ? "border-amber-400 shadow-lg shadow-amber-200/50 dark:shadow-amber-900/30" : "border-border"}`}
-                >
-                  <Image
-                    src={listing.logoUrl}
-                    alt={`${listing.name} logo`}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              ) : (
-                <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-2xl font-bold text-white border-2 border-border">
-                  {listing.name.charAt(0)}
-                </div>
-              )}
+              <ListingLogo name={listing.name} websiteUrl={listing.websiteUrl} size={80} />
             </div>
 
             {/* Info */}

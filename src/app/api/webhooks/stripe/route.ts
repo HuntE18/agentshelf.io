@@ -79,7 +79,6 @@ export async function POST(req: NextRequest) {
           },
         });
 
-        console.log(`[Stripe] Listing ${listingId} upgraded to ${tier}`);
         break;
       }
 
@@ -110,7 +109,6 @@ export async function POST(req: NextRequest) {
           data: { premiumUntil: addDays(base, 30) },
         });
 
-        console.log(`[Stripe] invoice.paid: extended premiumUntil for listing ${listing.id}`);
         break;
       }
 
@@ -136,7 +134,6 @@ export async function POST(req: NextRequest) {
             where: { id: listing.id },
             data: { premiumTier: newTier },
           });
-          console.log(`[Stripe] subscription.updated: listing ${listing.id} → ${newTier}`);
         }
         break;
       }
@@ -164,12 +161,10 @@ export async function POST(req: NextRequest) {
           },
         });
 
-        console.log(`[Stripe] subscription.deleted: listing ${listing.id} downgraded to BASIC`);
         break;
       }
 
       default:
-        console.log(`[Stripe] Unhandled event type: ${event.type}`);
     }
 
     return NextResponse.json({ received: true }, { status: 200 });
