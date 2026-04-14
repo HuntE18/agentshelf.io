@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
+import { Analytics } from "@vercel/analytics/next";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
@@ -64,6 +65,7 @@ export default function RootLayout({
             <Footer />
           </div>
           <Toaster />
+        <Analytics />
         </Providers>
       </body>
     </html>
