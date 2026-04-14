@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-type AdminTab = "pending" | "all" | "users" | "contacts";
+type AdminTab = "pending" | "all" | "users" | "contacts" | "top-picks";
 
 type Listing = {
   id: string;
@@ -17,6 +17,8 @@ type Listing = {
   websiteUrl: string;
   submittedBy: { name: string | null; email: string } | null;
   category: { name: string; icon: string };
+  featured: boolean;
+  avgRating?: number;
 };
 
 type User = {
@@ -63,6 +65,7 @@ export default function AdminPage() {
   const [allStatusFilter, setAllStatusFilter] = useState("ALL");
   const [toastMsg, setToastMsg] = useState<{ text: string; type: "success" | "error" } | null>(null);
   const [actioning, setActioning] = useState<string | null>(null);
+  const [featuredSearch, setFeaturedSearch] = useState("");
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -157,6 +160,7 @@ export default function AdminPage() {
     { id: "all", label: "All Listings", count: allListings.length },
     { id: "users", label: "Users", count: users.length },
     { id: "contacts", label: "Contact Submissions", count: contacts.length },
+    { id: "top-picks", label: "⭐ Top Picks" },
   ];
 
   return (
@@ -418,6 +422,113 @@ export default function AdminPage() {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+
+        {/* Top Shelf Picks */}
+        {tab === "top-picks" && (
+          <div>
+            <div className="flex items-center justify-between mb-5">
+              <div>
+                <h3 className="text-lg font-semibold text-foreground">Top Shelf Picks</h3>
+                <p className="text-sm text-muted-foreground mt-0.5">
+                  Featured listings appear on the homepage. Maximum 12 featured at once.
+                </p>
+              </div>
+              <div className="text-sm font-semibold text-foreground">
+                {allListings.filter(l => l.featured).length} / 12 featured
+              </div>
+            </div>
+
+            {/* Search */}
+            <input
+              type="text"
+              placeholder="Search listings..."
+              value={featuredSearch}
+              onChange={(e) => setFeaturedSearch(e.target.value)}
+              className="w-full mb-5 rounded-lg border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+            />
+
+            {/* Featured first, then rest */}
+            {loading ? (
+              <div className="space-y-3">
+                {[1,2,3].map(i => <div key={i} className="h-14 rounded-lg bg-secondary animate-pulse" />)}
+              </div>
+            ) : (
+              <div className="rounded-xl border border-border bg-card overflow-hidden">
+                <table className="w-full text-sm">
+                  <thead className="border-b border-border bg-secondary/50">
+                    <tr>
+                      <th className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Tool</th>
+                      <th className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground hidden sm:table-cell">Category</th>
+                      <th className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground hidden md:table-cell">Rating</th>
+                      <th className="text-center px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Featured</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    {[
+                      ...allListings.filter(l => l.featured),
+                      ...allListings.filter(l => !l.featured)
+                    ]
+                      .filter(l => l.status === "APPROVED")
+                      .filter(l => !featuredSearch || l.name.toLowerCase().includes(featuredSearch.toLowerCase()))
+                      .map((listing) => (
+                      <tr key={listing.id} className="hover:bg-secondary/30 transition-colors">
+                        <td className="px-5 py-3">
+                          <div className="flex items-center gap-2">
+                            {listing.featured && <span className="text-amber-400">⭐</span>}
+                            <span className="font-medium text-foreground">{listing.name}</span>
+                          </div>
+                        </td>
+                        <td className="px-5 py-3 text-muted-foreground hidden sm:table-cell">
+                          {listing.category?.name}
+                        </td>
+                        <td className="px-5 py-3 text-muted-foreground hidden md:table-cell">
+                          {listing.avgRating?.toFixed(1) ?? "—"}
+                        </td>
+                        <td className="px-5 py-3 text-center">
+                          <button
+                            disabled={actioning === listing.id || (!listing.featured && allListings.filter(l => l.featured).length >= 12)}
+                            onClick={async () => {
+                              if (!listing.featured && allListings.filter(l => l.featured).length >= 12) {
+                                showToast("Maximum 12 featured listings reached", "error");
+                                return;
+                              }
+                              setActioning(listing.id);
+                              try {
+                                const res = await fetch(`/api/admin/listings/${listing.id}`, {
+                                  method: "PATCH",
+                                  headers: { "Content-Type": "application/json" },
+                                  body: JSON.stringify({ featured: !listing.featured }),
+                                });
+                                if (res.ok) {
+                                  setAllListings(prev => prev.map(l => 
+                                    l.id === listing.id ? { ...l, featured: !l.featured } : l
+                                  ));
+                                  showToast(listing.featured ? "Removed from Top Picks" : "Added to Top Picks!", "success");
+                                }
+                              } finally {
+                                setActioning(null);
+                              }
+                            }}
+                            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none disabled:opacity-50 ${
+                              listing.featured ? "bg-amber-400" : "bg-slate-200 dark:bg-slate-700"
+                            }`}
+                            title={listing.featured ? "Remove from featured" : (!listing.featured && allListings.filter(l => l.featured).length >= 12) ? "Max 12 featured" : "Add to featured"}
+                          >
+                            <span
+                              className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${
+                                listing.featured ? "translate-x-6" : "translate-x-1"
+                              }`}
+                            />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         )}
 

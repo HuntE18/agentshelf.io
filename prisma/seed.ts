@@ -2434,6 +2434,66 @@ async function main() {
   }
   console.log(`     ✓ ${LISTINGS.length} listings upserted`);
 
+  // ─── Stacks ──────────────────────────────────────────────────────────────────
+  console.log("Seeding stacks...");
+
+  const stacksData = [
+    {
+      name: "The Solopreneur Stack",
+      slug: "solopreneur-stack",
+      emoji: "🚀",
+      description: "Everything a solo founder needs to build, market, and run a business with AI. From writing to automation to design — this stack replaces an entire team.",
+      listings: ["ChatGPT", "Jasper AI", "Midjourney", "Zapier AI", "Notion AI", "ElevenLabs"],
+    },
+    {
+      name: "Developer's AI Toolkit",
+      slug: "developers-ai-toolkit",
+      emoji: "💻",
+      description: "The essential AI tools for software developers. Code faster, debug smarter, and ship more with these developer-focused AI tools.",
+      listings: ["GitHub Copilot", "Cursor", "Claude", "LangChain", "Aider"],
+    },
+    {
+      name: "Content Creator Essentials",
+      slug: "content-creator-essentials",
+      emoji: "🎬",
+      description: "The complete toolkit for AI-powered content creation. From ideation to production — videos, images, audio, and copy covered.",
+      listings: ["Midjourney", "Runway ML", "ElevenLabs", "Suno AI", "Copy.ai", "Descript"],
+    },
+    {
+      name: "AI Research Setup",
+      slug: "ai-research-setup",
+      emoji: "🔬",
+      description: "Tools for researchers, analysts, and curious minds. Search smarter, synthesize faster, and surface insights from any body of knowledge.",
+      listings: ["Perplexity AI", "Claude", "Elicit", "Consensus", "Semantic Scholar AI"],
+    },
+  ];
+
+  for (const stackData of stacksData) {
+    // Find listing IDs by name
+    const listingRecords = await prisma.listing.findMany({
+      where: { name: { in: stackData.listings } },
+      select: { id: true },
+    });
+
+    await prisma.stack.upsert({
+      where: { slug: stackData.slug },
+      update: {
+        name: stackData.name,
+        description: stackData.description,
+        emoji: stackData.emoji,
+        listings: { set: listingRecords.map(l => ({ id: l.id })) },
+      },
+      create: {
+        name: stackData.name,
+        slug: stackData.slug,
+        description: stackData.description,
+        emoji: stackData.emoji,
+        listings: { connect: listingRecords.map(l => ({ id: l.id })) },
+      },
+    });
+  }
+  console.log("Stacks seeded.");
+
   console.log("\n✅ Seed complete!");
   console.log(`   ${CATEGORIES.length} categories`);
   console.log(`   ${LISTINGS.length} listings`);

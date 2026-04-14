@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { ListingCard } from "@/components/ListingCard";
 import { CategoryCard } from "@/components/CategoryCard";
 import { SearchBar } from "@/components/SearchBar";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 
 export const dynamic = "force-dynamic";
 
@@ -53,11 +54,29 @@ async function getHomeData() {
     }),
   ]);
 
-  return { featuredListings, categories, recentListings };
+  const trendingListings = await prisma.listing.findMany({
+    where: { status: "APPROVED" },
+    orderBy: { viewCount: "desc" },
+    take: 6,
+    include: {
+      category: true,
+      tags: true,
+      reviews: { select: { rating: true } },
+      _count: { select: { reviews: true, bookmarks: true } },
+    },
+  });
+
+  const stackPreviews = await prisma.stack.findMany({
+    take: 4,
+    include: { _count: { select: { listings: true } } },
+    orderBy: { createdAt: "asc" },
+  });
+
+  return { featuredListings, categories, recentListings, trendingListings, stackPreviews };
 }
 
 export default async function HomePage() {
-  const { featuredListings, categories, recentListings } = await getHomeData();
+  const { featuredListings, categories, recentListings, trendingListings, stackPreviews } = await getHomeData();
 
   return (
     <div className="min-h-screen">
@@ -222,6 +241,78 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      {/* Trending */}
+      {trendingListings.length > 0 && (
+        <section className="py-16">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h2 className="text-2xl font-bold text-foreground">🔥 Trending Now</h2>
+                <p className="text-muted-foreground mt-1">Most viewed tools right now</p>
+              </div>
+              <Link href="/browse?sort=most_viewed" className="text-sm font-medium text-primary hover:underline">
+                See all →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {trendingListings.map((listing) => (
+                <ListingCard key={listing.id} listing={listing as any} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Curated Stacks preview */}
+      {stackPreviews.length > 0 && (
+        <section className="py-16 bg-slate-50 dark:bg-slate-900/50">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h2 className="text-2xl font-bold text-foreground">Curated Stacks</h2>
+                <p className="text-muted-foreground mt-1">Hand-picked tool collections for every workflow</p>
+              </div>
+              <Link href="/stacks" className="text-sm font-medium text-primary hover:underline">
+                See all stacks →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {stackPreviews.map((stack) => (
+                <Link
+                  key={stack.id}
+                  href={`/stacks/${stack.slug}`}
+                  className="group rounded-2xl border border-border bg-card p-5 hover:border-primary/50 hover:shadow-md transition-all"
+                >
+                  <div className="text-3xl mb-3">{stack.emoji}</div>
+                  <h3 className="font-bold text-foreground group-hover:text-primary transition-colors text-sm leading-snug">
+                    {stack.name}
+                  </h3>
+                  <p className="text-xs text-muted-foreground mt-1">{stack._count.listings} tools</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Newsletter */}
+      <section className="py-20 px-4">
+        <div className="mx-auto max-w-2xl text-center">
+          <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-indigo-100 dark:bg-indigo-950/50 mb-6">
+            <svg className="h-7 w-7 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+            </svg>
+          </div>
+          <h2 className="text-3xl font-bold text-foreground mb-3">The Shelf Report</h2>
+          <p className="text-lg text-muted-foreground mb-2">Get the best AI tools delivered weekly</p>
+          <p className="text-sm text-muted-foreground mb-8">
+            Every Friday, we curate the top new tools, trending agents, and tutorials — so you never miss what&apos;s next in AI.
+          </p>
+          <NewsletterSignup />
+          <p className="mt-4 text-xs text-muted-foreground">Unsubscribe anytime. No spam, ever.</p>
+        </div>
+      </section>
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-indigo-600 to-teal-600">

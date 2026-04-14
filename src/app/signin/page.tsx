@@ -47,8 +47,6 @@ function SignInContent() {
   const [authError, setAuthError] = useState("");
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
-  const [demoLoading, setDemoLoading] = useState<string | null>(null);
-
   const {
     register,
     handleSubmit,
@@ -77,23 +75,6 @@ function SignInContent() {
   const handleGoogle = async () => {
     setGoogleLoading(true);
     await signIn("google", { callbackUrl });
-  };
-
-  const handleDemo = async (email: string) => {
-    setDemoLoading(email);
-    setAuthError("");
-    const result = await signIn("credentials", {
-      email,
-      password: "__demo__",
-      redirect: false,
-    });
-    setDemoLoading(null);
-    if (result?.ok) {
-      router.push(callbackUrl);
-      router.refresh();
-    } else {
-      setAuthError("Demo login failed. Please try again.");
-    }
   };
 
   return (
@@ -210,42 +191,6 @@ function SignInContent() {
             </Link>
           </div>
 
-          {/* Demo access */}
-          <div className="mt-6 border-t border-border pt-5">
-            <p className="text-xs text-center text-muted-foreground mb-3 font-medium uppercase tracking-wide">
-              Demo Access
-            </p>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                onClick={() => handleDemo("demo@agentshelf.io")}
-                disabled={demoLoading !== null}
-                className="rounded-lg border border-border bg-secondary px-3 py-2 text-xs font-medium text-foreground hover:bg-muted disabled:opacity-60 transition-colors"
-              >
-                {demoLoading === "demo@agentshelf.io" ? (
-                  <span className="flex items-center justify-center gap-1">
-                    <span className="h-3 w-3 animate-spin rounded-full border-2 border-foreground border-t-transparent" />
-                    Loading...
-                  </span>
-                ) : (
-                  "Demo User"
-                )}
-              </button>
-              <button
-                onClick={() => handleDemo("admin@agentshelf.io")}
-                disabled={demoLoading !== null}
-                className="rounded-lg border border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-900/20 px-3 py-2 text-xs font-medium text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 disabled:opacity-60 transition-colors"
-              >
-                {demoLoading === "admin@agentshelf.io" ? (
-                  <span className="flex items-center justify-center gap-1">
-                    <span className="h-3 w-3 animate-spin rounded-full border-2 border-indigo-600 border-t-transparent" />
-                    Loading...
-                  </span>
-                ) : (
-                  "Admin Demo"
-                )}
-              </button>
-            </div>
-          </div>
         </div>
 
         <p className="mt-6 text-center text-xs text-muted-foreground">

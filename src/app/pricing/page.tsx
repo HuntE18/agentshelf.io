@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PricingCTA } from "@/components/PricingCTA";
 
 export const metadata: Metadata = {
   title: "Pricing — AgentShelf",
   description:
     "List your AI tool for free or upgrade for premium placement. Featured and Spotlight tiers get top billing on AgentShelf.",
 };
-
-const FEATURED_PRICE_ID = process.env.NEXT_PUBLIC_STRIPE_FEATURED_PRICE_ID || "";
-const SPOTLIGHT_PRICE_ID = process.env.NEXT_PUBLIC_STRIPE_SPOTLIGHT_PRICE_ID || "";
 
 const FAQ = [
   {
@@ -149,16 +147,11 @@ export default function PricingPage() {
                 </li>
               ))}
             </ul>
-            <a
-              href={
-                FEATURED_PRICE_ID
-                  ? `/api/stripe/checkout?priceId=${FEATURED_PRICE_ID}`
-                  : "/signin?callbackUrl=/pricing"
-              }
-              className="block text-center rounded-xl bg-teal-500 px-5 py-3 text-sm font-semibold text-white hover:bg-teal-600 shadow-md transition-all hover:scale-105"
-            >
-              Get Featured
-            </a>
+            <PricingCTA
+              tier="featured"
+              label="Get Featured"
+              className="block w-full rounded-xl bg-primary py-3 text-center text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-all"
+            />
           </div>
 
           {/* Spotlight — $79/mo */}
@@ -197,16 +190,11 @@ export default function PricingPage() {
                 </li>
               ))}
             </ul>
-            <a
-              href={
-                SPOTLIGHT_PRICE_ID
-                  ? `/api/stripe/checkout?priceId=${SPOTLIGHT_PRICE_ID}`
-                  : "/signin?callbackUrl=/pricing"
-              }
-              className="block text-center rounded-xl bg-amber-500 px-5 py-3 text-sm font-semibold text-white hover:bg-amber-600 shadow-md transition-all hover:scale-105"
-            >
-              Get Spotlight
-            </a>
+            <PricingCTA
+              tier="spotlight"
+              label="Get Spotlight"
+              className="block w-full rounded-xl bg-gradient-to-r from-indigo-600 to-teal-500 py-3 text-center text-sm font-semibold text-white hover:opacity-90 transition-all"
+            />
           </div>
         </div>
 

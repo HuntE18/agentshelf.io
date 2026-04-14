@@ -113,9 +113,9 @@ export default function DashboardPage() {
       fetch("/api/user/reviews").then((r) => r.json()),
     ])
       .then(([b, s, r]) => {
-        setBookmarks(b.bookmarks || []);
-        setSubmissions(s.submissions || []);
-        setReviews(r.reviews || []);
+        setBookmarks(Array.isArray(b) ? b : (b.bookmarks || []));
+        setSubmissions(Array.isArray(s) ? s : (s.submissions || []));
+        setReviews(Array.isArray(r) ? r : (r.reviews || []));
         setLoading(false);
       })
       .catch(() => setLoading(false));

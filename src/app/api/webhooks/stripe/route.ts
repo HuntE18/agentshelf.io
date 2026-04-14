@@ -73,6 +73,7 @@ export async function POST(req: NextRequest) {
           where: { id: listingId },
           data: {
             premiumTier: tier,
+            featured: true, // both Featured and Spotlight tiers get featured=true
             premiumUntil: addDays(new Date(), 30),
             stripeCustomerId: session.customer as string | null,
             stripeSubscriptionId: session.subscription as string | null,
@@ -156,6 +157,7 @@ export async function POST(req: NextRequest) {
           where: { id: listing.id },
           data: {
             premiumTier: "BASIC",
+            featured: false,
             premiumUntil: null,
             stripeSubscriptionId: null,
           },

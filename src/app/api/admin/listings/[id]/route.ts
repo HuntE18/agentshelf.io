@@ -15,9 +15,10 @@ async function requireAdmin() {
 
 // ─── PATCH — approve or reject a single listing ───────────────────────────────
 
-const updateStatusSchema = z.object({
-  status: z.enum(["APPROVED", "REJECTED", "PENDING"]),
+const updateListingSchema = z.object({
+  status: z.enum(["APPROVED", "REJECTED", "PENDING"]).optional(),
   adminNote: z.string().max(500).optional(),
+  featured: z.boolean().optional(),
 });
 
 export async function PATCH(
@@ -31,7 +32,7 @@ export async function PATCH(
     }
 
     const body = await req.json();
-    const result = updateStatusSchema.safeParse(body);
+    const result = updateListingSchema.safeParse(body);
 
     if (!result.success) {
       return NextResponse.json(
@@ -43,7 +44,7 @@ export async function PATCH(
       );
     }
 
-    const { status, adminNote } = result.data;
+    const { status, adminNote, featured } = result.data;
 
     const listing = await prisma.listing.findUnique({
       where: { id: params.id },
@@ -57,8 +58,9 @@ export async function PATCH(
     const updated = await prisma.listing.update({
       where: { id: params.id },
       data: {
-        status,
+        ...(status !== undefined && { status }),
         ...(adminNote !== undefined && { adminNote }),
+        ...(featured !== undefined && { featured }),
       },
       include: {
         category: true,

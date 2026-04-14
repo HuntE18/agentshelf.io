@@ -171,6 +171,7 @@ model Listing {
   tags      Tag[]
   reviews   Review[]
   bookmarks Bookmark[]
+  stacks    Stack[]
 
   // Aggregates (denormalized for query performance)
   avgRating   Float @default(0)
@@ -181,6 +182,24 @@ model Listing {
   updatedAt DateTime @updatedAt
 
   @@map("listings")
+}
+
+// ============================================================================
+// Stacks
+// ============================================================================
+
+model Stack {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  description String
+  emoji       String    @default("📦")
+  listings    Listing[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("stacks")
 }
 
 // ============================================================================

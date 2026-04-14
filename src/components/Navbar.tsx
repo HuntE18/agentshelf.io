@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { useTheme } from "next-themes";
-import { Menu, Sun, Moon, X, ChevronDown, LayoutDashboard, Shield, LogOut } from "lucide-react";
+import { Menu, Sun, Moon, X, ChevronDown, LayoutDashboard, Shield, LogOut, Bookmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
@@ -39,7 +39,7 @@ function ShelfLogo({ className }: { className?: string }) {
 const navLinks = [
   { label: "Browse the Shelf", href: "/browse" },
   { label: "Learn", href: "/tutorials" },
-  { label: "Pricing", href: "/pricing" },
+  { label: "Promote Your Tool", href: "/pricing" },
 ];
 
 // ─── User dropdown ────────────────────────────────────────────────────────────
@@ -98,6 +98,14 @@ function UserMenu({ user }: { user: { name?: string | null; email?: string | nul
           </div>
           <Separator />
           <div className="p-1">
+            <Link
+              href="/dashboard"
+              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-foreground hover:bg-secondary transition-colors"
+              onClick={() => setOpen(false)}
+            >
+              <Bookmark className="h-4 w-4 text-muted-foreground" />
+              My Shelf
+            </Link>
             <Link
               href="/dashboard"
               onClick={() => setOpen(false)}
@@ -196,6 +204,15 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
+          {session && (
+            <Link
+              href="/dashboard"
+              className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <Bookmark className="h-4 w-4" />
+              My Shelf
+            </Link>
+          )}
         </nav>
 
         {/* Spacer */}
@@ -266,6 +283,14 @@ export function Navbar() {
             )}
             {session?.user && (
               <div className="space-y-1 pt-1">
+                <Link
+                  href="/dashboard"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-2 rounded-md px-3 py-2.5 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                >
+                  <Bookmark className="h-4 w-4" />
+                  My Shelf
+                </Link>
                 <Link
                   href="/dashboard"
                   onClick={() => setMobileOpen(false)}
