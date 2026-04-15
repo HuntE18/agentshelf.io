@@ -39,20 +39,38 @@ export async function GET(req: NextRequest) {
       .filter(Boolean);
 
     // Build where clause
-    const where: any = {
-      status: "APPROVED",
-      ...(categoryName && { category: { name: categoryName } }),
-      ...(pricingEnumValues.length > 0 && { pricingModel: { in: pricingEnumValues } }),
-      ...(minRating !== undefined && { avgRating: { gte: minRating } }),
-      ...(search && {
+    // Category param could be a name (from homepage pills) or a slug (from category cards)
+    const conditions: any[] = [{ status: "APPROVED" }];
+
+    if (categoryName) {
+      conditions.push({
+        OR: [
+          { category: { name: categoryName } },
+          { category: { slug: categoryName } },
+        ],
+      });
+    }
+
+    if (pricingEnumValues.length > 0) {
+      conditions.push({ pricingModel: { in: pricingEnumValues } });
+    }
+
+    if (minRating !== undefined) {
+      conditions.push({ avgRating: { gte: minRating } });
+    }
+
+    if (search) {
+      conditions.push({
         OR: [
           { name: { contains: search, mode: "insensitive" } },
           { tagline: { contains: search, mode: "insensitive" } },
           { description: { contains: search, mode: "insensitive" } },
           { tags: { some: { name: { contains: search, mode: "insensitive" } } } },
         ],
-      }),
-    };
+      });
+    }
+
+    const where: any = { AND: conditions };
 
     // Build orderBy clause
     const orderBy: any =

@@ -106,7 +106,7 @@ export function SearchBar() {
     }
   };
 
-  const showPopular = open && query.length < 2;
+  const showPopular = open && query.length >= 1 && query.length < 2;
   const showSuggestions = open && query.length >= 2;
 
   return (
@@ -150,29 +150,29 @@ export function SearchBar() {
       {(showPopular || showSuggestions) && (
         <div
           ref={dropdownRef}
-          className="absolute top-full left-0 right-0 mt-2 z-50 rounded-xl border border-border bg-popover shadow-lg overflow-hidden"
+          className="absolute top-full left-0 right-0 mt-2 z-50 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-2xl overflow-hidden"
           style={{ maxHeight: "360px", overflowY: "auto" }}
         >
           {showPopular && (
             <>
-              <div className="px-4 py-2.5 border-b border-border">
-                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Popular searches</p>
+              <div className="px-4 py-2.5 border-b border-slate-200 dark:border-slate-700">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Popular searches</p>
               </div>
               <ul>
                 {POPULAR_SEARCHES.map((item, idx) => (
                   <li key={item.query}>
                     <button
                       type="button"
-                      className={`w-full flex items-center gap-3 px-4 py-3 text-left text-sm transition-colors hover:bg-secondary ${activeIdx === idx ? "bg-secondary" : ""}`}
+                      className={`w-full flex items-center gap-3 px-4 py-3 text-left text-sm transition-colors hover:bg-slate-100 dark:hover:bg-slate-800 ${activeIdx === idx ? "bg-slate-100 dark:bg-slate-800" : ""}`}
                       onMouseDown={() => {
                         setOpen(false);
                         router.push(`/browse?q=${encodeURIComponent(item.query)}`);
                       }}
                     >
-                      <svg className="h-4 w-4 text-muted-foreground shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="h-4 w-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                       </svg>
-                      <span className="text-foreground">{item.label}</span>
+                      <span className="text-slate-900 dark:text-slate-100">{item.label}</span>
                     </button>
                   </li>
                 ))}
@@ -183,17 +183,17 @@ export function SearchBar() {
           {showSuggestions && (
             <>
               {loading ? (
-                <div className="px-4 py-8 text-center text-sm text-muted-foreground">
+                <div className="px-4 py-8 text-center text-sm text-slate-500 dark:text-slate-400">
                   Searching...
                 </div>
               ) : suggestions.length === 0 ? (
-                <div className="px-4 py-8 text-center text-sm text-muted-foreground">
+                <div className="px-4 py-8 text-center text-sm text-slate-500 dark:text-slate-400">
                   No results for &ldquo;{query}&rdquo;
                 </div>
               ) : (
                 <>
-                  <div className="px-4 py-2.5 border-b border-border">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Tools</p>
+                  <div className="px-4 py-2.5 border-b border-slate-200 dark:border-slate-700">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Tools</p>
                   </div>
                   <ul>
                     {suggestions.map((s, idx) => (
@@ -201,7 +201,7 @@ export function SearchBar() {
                         <Link
                           href={`/listing/${s.slug}`}
                           onMouseDown={() => setOpen(false)}
-                          className={`flex items-center gap-3 px-4 py-3 text-sm transition-colors hover:bg-secondary ${activeIdx === idx ? "bg-secondary" : ""}`}
+                          className={`flex items-center gap-3 px-4 py-3 text-sm transition-colors hover:bg-slate-100 dark:hover:bg-slate-800 ${activeIdx === idx ? "bg-slate-100 dark:bg-slate-800" : ""}`}
                         >
                           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-base font-bold text-primary">
                             {s.name[0]}
@@ -221,14 +221,14 @@ export function SearchBar() {
                       </li>
                     ))}
                   </ul>
-                  <div className="border-t border-border">
+                  <div className="border-t border-slate-200 dark:border-slate-700">
                     <button
                       type="button"
                       onMouseDown={() => {
                         setOpen(false);
                         router.push(`/browse?q=${encodeURIComponent(query)}`);
                       }}
-                      className="w-full px-4 py-3 text-left text-sm text-primary hover:bg-secondary transition-colors font-medium"
+                      className="w-full px-4 py-3 text-left text-sm text-indigo-600 dark:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors font-medium"
                     >
                       See all results for &ldquo;{query}&rdquo; →
                     </button>
