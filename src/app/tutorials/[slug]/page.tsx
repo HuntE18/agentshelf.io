@@ -37,7 +37,7 @@ export default function TutorialPage({ params }: Props) {
     tutorialIndex < TUTORIALS.length - 1 ? TUTORIALS[tutorialIndex + 1] : null;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
       {/* Hero Header */}
       <div className="bg-gradient-to-br from-indigo-50 via-white to-teal-50 dark:from-slate-900 dark:via-slate-900 dark:to-indigo-950 border-b border-border">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
@@ -82,8 +82,8 @@ export default function TutorialPage({ params }: Props) {
         </div>
       </div>
 
-      {/* Share bar */}
-      <div className="border-b border-border bg-white dark:bg-slate-900/50 sticky top-16 z-30">
+      {/* Share bar — not sticky, stays in place */}
+      <div className="border-b border-border bg-white dark:bg-slate-900/50">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
             <span className="hidden sm:inline font-medium uppercase tracking-wide">Share this guide</span>
@@ -92,9 +92,10 @@ export default function TutorialPage({ params }: Props) {
         </div>
       </div>
 
-      {/* Content */}
+      {/* Content — sunken card to distinguish from title */}
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <article
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm p-6 sm:p-10 md:p-14">
+          <article
           className="prose prose-lg prose-slate dark:prose-invert max-w-none
             prose-headings:font-bold prose-headings:tracking-tight
             prose-h2:text-3xl prose-h2:mt-14 prose-h2:mb-5 prose-h2:text-slate-900 dark:prose-h2:text-white prose-h2:border-b prose-h2:border-slate-200 dark:prose-h2:border-slate-700 prose-h2:pb-3
@@ -110,6 +111,7 @@ export default function TutorialPage({ params }: Props) {
             prose-blockquote:border-l-4 prose-blockquote:border-indigo-500 prose-blockquote:bg-indigo-50 dark:prose-blockquote:bg-indigo-950/30 prose-blockquote:rounded-r-xl prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:not-italic"
           dangerouslySetInnerHTML={{ __html: tutorial.content }}
         />
+        </div>
 
         {/* Prev/Next navigation */}
         <div className="mt-16 pt-8 border-t border-border grid grid-cols-2 gap-4">
