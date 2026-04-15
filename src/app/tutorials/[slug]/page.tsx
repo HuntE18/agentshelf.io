@@ -94,18 +94,20 @@ export default function TutorialPage({ params }: Props) {
 
       {/* Content — sunken card to distinguish from title */}
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm p-6 sm:p-10 md:p-14">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm p-6 sm:p-10 md:p-14 overflow-hidden">
           <article
-          className="prose prose-lg prose-slate dark:prose-invert max-w-none
+          className="prose prose-lg prose-slate dark:prose-invert max-w-none break-words
+            [&>h2:first-child]:mt-0 [&>h2:first-child]:pt-0
             prose-headings:font-bold prose-headings:tracking-tight
-            prose-h2:text-3xl prose-h2:mt-14 prose-h2:mb-5 prose-h2:text-slate-900 dark:prose-h2:text-white prose-h2:border-b prose-h2:border-slate-200 dark:prose-h2:border-slate-700 prose-h2:pb-3
-            prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4 prose-h3:text-slate-800 dark:prose-h3:text-slate-200
-            prose-p:leading-8 prose-p:text-slate-700 dark:prose-p:text-slate-300 prose-p:text-base
-            prose-li:text-slate-700 dark:prose-li:text-slate-300 prose-li:leading-7
+            prose-h2:text-2xl sm:prose-h2:text-3xl prose-h2:mt-16 prose-h2:mb-6 prose-h2:text-slate-900 dark:prose-h2:text-white prose-h2:border-b prose-h2:border-slate-200 dark:prose-h2:border-slate-700 prose-h2:pb-4 first:prose-h2:mt-0
+            prose-h3:text-lg sm:prose-h3:text-xl prose-h3:mt-10 prose-h3:mb-4 prose-h3:text-slate-800 dark:prose-h3:text-slate-200
+            prose-p:leading-8 prose-p:text-slate-600 dark:prose-p:text-slate-300 prose-p:text-base prose-p:my-5
+            prose-li:text-slate-600 dark:prose-li:text-slate-300 prose-li:leading-7 prose-li:my-1
+            prose-ul:my-6 prose-ol:my-6
             prose-strong:text-slate-900 dark:prose-strong:text-white prose-strong:font-semibold
-            prose-code:bg-indigo-50 prose-code:dark:bg-indigo-950/50 prose-code:text-indigo-700 prose-code:dark:text-indigo-300 prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:text-sm prose-code:font-medium prose-code:before:content-none prose-code:after:content-none
-            prose-pre:bg-slate-950 prose-pre:text-slate-100 prose-pre:rounded-2xl prose-pre:p-6 prose-pre:overflow-x-auto prose-pre:text-sm prose-pre:shadow-lg prose-pre:border prose-pre:border-slate-800
-            prose-ul:my-4 prose-ol:my-4
+            prose-code:bg-slate-100 prose-code:dark:bg-slate-800 prose-code:text-indigo-600 prose-code:dark:text-indigo-400 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-[0.85em] prose-code:font-medium prose-code:before:content-none prose-code:after:content-none
+            [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-slate-200 [&_pre_code]:text-sm [&_pre_code]:rounded-none
+            prose-pre:bg-slate-950 prose-pre:text-slate-200 prose-pre:rounded-xl prose-pre:p-5 prose-pre:my-8 prose-pre:text-sm prose-pre:leading-6 prose-pre:shadow-md prose-pre:border prose-pre:border-slate-800 prose-pre:overflow-x-auto
             prose-table:text-sm prose-th:font-semibold prose-th:bg-slate-100 dark:prose-th:bg-slate-800 prose-th:px-4 prose-th:py-2 prose-td:px-4 prose-td:py-2
             prose-a:text-indigo-600 dark:prose-a:text-indigo-400 prose-a:no-underline hover:prose-a:underline prose-a:font-medium
             prose-blockquote:border-l-4 prose-blockquote:border-indigo-500 prose-blockquote:bg-indigo-50 dark:prose-blockquote:bg-indigo-950/30 prose-blockquote:rounded-r-xl prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:not-italic"
