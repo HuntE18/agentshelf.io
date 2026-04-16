@@ -39,6 +39,7 @@ export default function SubmitPage() {
   const [success, setSuccess] = useState(false);
   const [serverError, setServerError] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
+  const [pricingTooltip, setPricingTooltip] = useState(false);
 
   const {
     register,
@@ -69,15 +70,29 @@ export default function SubmitPage() {
       .catch(() => {});
   }, []);
 
+  const PRICING_MAP: Record<string, string> = {
+    "Free": "FREE",
+    "Freemium": "FREEMIUM",
+    "Paid": "PAID",
+    "Open Source": "OPEN_SOURCE",
+  };
+
   const onSubmit = async (data: SubmitForm) => {
     setSubmitting(true);
     setServerError("");
     setFieldErrors({});
     try {
+      // Transform display values → API enum values before sending
+      const payload = {
+        ...data,
+        pricingModel: PRICING_MAP[data.pricingModel] ?? data.pricingModel,
+        // Don't send empty string for optional URL field
+        logoUrl: data.logoUrl && data.logoUrl.trim() !== "" ? data.logoUrl.trim() : undefined,
+      };
       const res = await fetch("/api/listings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
       });
       const json = await res.json();
       if (!res.ok) {
@@ -268,6 +283,28 @@ export default function SubmitPage() {
           <div>
             <label className="block text-sm font-medium text-foreground mb-1.5">
               Pricing Model <span className="text-destructive">*</span>
+              <span className="relative inline-block ml-1.5 align-middle">
+                <button
+                  type="button"
+                  onMouseEnter={() => setPricingTooltip(true)}
+                  onMouseLeave={() => setPricingTooltip(false)}
+                  onFocus={() => setPricingTooltip(true)}
+                  onBlur={() => setPricingTooltip(false)}
+                  className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-muted text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors text-[10px] font-bold leading-none"
+                  aria-label="Pricing model descriptions"
+                >
+                  i
+                </button>
+                {pricingTooltip && (
+                  <div className="absolute left-1/2 -translate-x-1/2 bottom-6 z-20 w-64 rounded-xl border border-border bg-card shadow-lg p-3 text-xs text-muted-foreground space-y-1.5">
+                    <p><span className="font-semibold text-foreground">Free</span> — No payment required, ever.</p>
+                    <p><span className="font-semibold text-foreground">Freemium</span> — Free tier available, paid plans for more.</p>
+                    <p><span className="font-semibold text-foreground">Paid</span> — Requires a subscription or one-time purchase.</p>
+                    <p><span className="font-semibold text-foreground">Open Source</span> — Source code is publicly available.</p>
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 border-r border-b border-border bg-card rotate-45 -mt-1" />
+                  </div>
+                )}
+              </span>
             </label>
             <select
               {...register("pricingModel")}
