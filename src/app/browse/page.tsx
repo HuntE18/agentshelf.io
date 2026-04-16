@@ -27,8 +27,8 @@ type Category = { id: string; name: string; icon: string };
 
 const PRICING_OPTIONS = ["Free", "Freemium", "Paid", "Open Source"];
 const SORT_OPTIONS = [
-  { value: "newest", label: "Newest" },
   { value: "top_rated", label: "Top Rated" },
+  { value: "newest", label: "Newest" },
   { value: "most_reviewed", label: "Most Reviewed" },
   { value: "a_z", label: "A–Z" },
 ];
@@ -46,7 +46,7 @@ function BrowseContent() {
   const query = searchParams.get("q") || "";
   const categoryParam = searchParams.get("category") || "";
   const pricingParams = searchParams.getAll("pricing");
-  const sort = searchParams.get("sort") || "newest";
+  const sort = searchParams.get("sort") || "top_rated";
   const page = Number(searchParams.get("page") || "1");
   const PAGE_SIZE = 12;
 
@@ -324,12 +324,19 @@ function BrowseContent() {
               <div className="mt-10 flex items-center justify-center gap-2">
                 <button
                   disabled={page <= 1}
+                  onClick={() => updateParam("page", "1")}
+                  className="rounded-lg border border-border bg-card px-4 py-2 text-sm font-medium disabled:opacity-40 hover:bg-secondary transition-colors"
+                >
+                  « First
+                </button>
+                <button
+                  disabled={page <= 1}
                   onClick={() =>
                     updateParam("page", String(Math.max(1, page - 1)))
                   }
                   className="rounded-lg border border-border bg-card px-4 py-2 text-sm font-medium disabled:opacity-40 hover:bg-secondary transition-colors"
                 >
-                  ← Previous
+                  ‹ Previous
                 </button>
                 {Array.from({ length: Math.min(5, totalPages) }).map((_, i) => {
                   const pageNum =
@@ -361,7 +368,14 @@ function BrowseContent() {
                   }
                   className="rounded-lg border border-border bg-card px-4 py-2 text-sm font-medium disabled:opacity-40 hover:bg-secondary transition-colors"
                 >
-                  Next →
+                  Next ›
+                </button>
+                <button
+                  disabled={page >= totalPages}
+                  onClick={() => updateParam("page", String(totalPages))}
+                  className="rounded-lg border border-border bg-card px-4 py-2 text-sm font-medium disabled:opacity-40 hover:bg-secondary transition-colors"
+                >
+                  Last »
                 </button>
               </div>
             )}

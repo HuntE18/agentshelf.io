@@ -18,8 +18,15 @@ export async function GET(_req: NextRequest) {
       orderBy: { createdAt: "desc" },
       include: {
         listing: {
-          include: {
-            category: true,
+          select: {
+            id: true,
+            name: true,
+            slug: true,
+            tagline: true,
+            logoUrl: true,
+            websiteUrl: true,
+            pricingModel: true,
+            category: { select: { name: true, icon: true } },
             _count: { select: { reviews: true } },
           },
         },

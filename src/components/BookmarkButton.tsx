@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { Heart } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type Props = {
   listingSlug: string;
@@ -28,13 +30,18 @@ export function BookmarkButton({ listingSlug, variant = "icon" }: Props) {
       router.push(`/signin?callbackUrl=${window.location.pathname}`);
       return;
     }
+    // Optimistic update — flip immediately, revert on failure
+    const prev = bookmarked;
+    setBookmarked(!prev);
     setLoading(true);
     try {
-      const method = bookmarked ? "DELETE" : "POST";
+      const method = prev ? "DELETE" : "POST";
       const res = await fetch(`/api/listings/${listingSlug}/bookmark`, { method });
-      if (res.ok) {
-        setBookmarked((prev) => !prev);
+      if (!res.ok) {
+        setBookmarked(prev); // revert
       }
+    } catch {
+      setBookmarked(prev); // revert
     } finally {
       setLoading(false);
     }
@@ -45,26 +52,15 @@ export function BookmarkButton({ listingSlug, variant = "icon" }: Props) {
       <button
         onClick={toggle}
         disabled={loading}
-        className={`w-full flex items-center justify-center gap-2 rounded-xl border py-2.5 text-sm font-semibold transition-all ${
+        className={cn(
+          "w-full flex items-center justify-center gap-2 rounded-xl border py-2.5 text-sm font-semibold transition-all disabled:opacity-60",
           bookmarked
-            ? "border-teal-500 bg-teal-500 text-white hover:bg-teal-600"
+            ? "border-red-500 bg-red-500 text-white hover:bg-red-600"
             : "border-border bg-card text-foreground hover:bg-secondary"
-        } disabled:opacity-60`}
+        )}
       >
-        <svg
-          className="h-4 w-4"
-          fill={bookmarked ? "currentColor" : "none"}
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
-          />
-        </svg>
-        {bookmarked ? "Saved to shelf" : "Add to your shelf"}
+        <Heart className={cn("h-4 w-4", bookmarked ? "fill-white" : "")} />
+        {bookmarked ? "Saved to favorites" : "Add to favorites"}
       </button>
     );
   }
@@ -73,29 +69,18 @@ export function BookmarkButton({ listingSlug, variant = "icon" }: Props) {
     <button
       onClick={toggle}
       disabled={loading}
-      title={bookmarked ? "Remove from shelf" : "Add to shelf"}
-      className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all ${
+      title={bookmarked ? "Remove from favorites" : "Add to favorites"}
+      className={cn(
+        "flex h-10 w-10 items-center justify-center rounded-xl border transition-all disabled:opacity-60",
         bookmarked
-          ? "border-teal-500 bg-teal-500 text-white hover:bg-teal-600"
+          ? "border-red-500 bg-red-500 text-white hover:bg-red-600"
           : "border-border bg-card text-muted-foreground hover:text-foreground hover:bg-secondary"
-      } disabled:opacity-60`}
+      )}
     >
       {loading ? (
         <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
       ) : (
-        <svg
-          className="h-4 w-4"
-          fill={bookmarked ? "currentColor" : "none"}
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
-          />
-        </svg>
+        <Heart className={cn("h-4 w-4", bookmarked ? "fill-white" : "")} />
       )}
     </button>
   );

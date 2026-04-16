@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -72,6 +73,15 @@ export default function ContactPage() {
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-10">
+          <div className="mb-5 flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-3 text-sm text-muted-foreground">
+            <span>💡</span>
+            <span>
+              Looking for a quick answer?{" "}
+              <Link href="/faq" className="text-primary font-medium hover:underline">
+                Check our FAQ →
+              </Link>
+            </span>
+          </div>
           <h1 className="text-4xl font-bold text-foreground mb-3">
             Get in touch
           </h1>

@@ -301,7 +301,8 @@ export default function SubmitPage() {
               className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
             />
             <p className="mt-1 text-xs text-muted-foreground">
-              Direct link to a square image (PNG or SVG preferred, min 128×128px)
+              Direct link to a square image (PNG or SVG preferred, min 128×128px).{" "}
+              <span className="text-amber-600 dark:text-amber-400">Note: We only accept direct URLs for logos and images. File uploads are not supported.</span>
             </p>
             {errors.logoUrl && (
               <p className="mt-1 text-xs text-destructive">{errors.logoUrl.message}</p>

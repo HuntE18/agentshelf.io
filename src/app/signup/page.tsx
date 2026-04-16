@@ -19,6 +19,9 @@ const signUpSchema = z
       .regex(/[A-Z]/, "Password must contain at least 1 uppercase letter")
       .regex(/[0-9]/, "Password must contain at least 1 number"),
     confirmPassword: z.string(),
+    termsAccepted: z.literal(true, {
+      errorMap: () => ({ message: "You must agree to the Terms of Service and Privacy Policy" }),
+    }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
@@ -307,6 +310,30 @@ function SignUpContent() {
               )}
             </div>
 
+            {/* Terms Acceptance */}
+            <div>
+              <label className="flex items-start gap-2.5 cursor-pointer">
+                <input
+                  type="checkbox"
+                  {...register("termsAccepted")}
+                  className="mt-0.5 accent-primary h-4 w-4 rounded border-input"
+                />
+                <span className="text-sm text-muted-foreground leading-relaxed">
+                  I agree to the{" "}
+                  <Link href="/terms" className="text-primary hover:underline font-medium">
+                    Terms of Service
+                  </Link>{" "}
+                  and{" "}
+                  <Link href="/privacy" className="text-primary hover:underline font-medium">
+                    Privacy Policy
+                  </Link>
+                </span>
+              </label>
+              {errors.termsAccepted && (
+                <p className="mt-1 text-xs text-destructive">{errors.termsAccepted.message}</p>
+              )}
+            </div>
+
             <button
               type="submit"
               disabled={loading}
@@ -334,16 +361,6 @@ function SignUpContent() {
           </div>
         </div>
 
-        <p className="mt-6 text-center text-xs text-muted-foreground">
-          By creating an account, you agree to our{" "}
-          <Link href="/terms" className="hover:text-primary underline">
-            Terms
-          </Link>{" "}
-          and{" "}
-          <Link href="/privacy" className="hover:text-primary underline">
-            Privacy Policy
-          </Link>
-        </p>
       </div>
     </div>
   );

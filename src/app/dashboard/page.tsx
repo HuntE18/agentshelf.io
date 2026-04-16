@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { ListingLogo } from "@/components/ListingLogo";
 
 type Tab = "shelf" | "submissions" | "reviews" | "settings";
 
@@ -19,6 +20,7 @@ type BookmarkedListing = {
     slug: string;
     tagline: string;
     logoUrl: string | null;
+    websiteUrl: string;
     pricingModel: string;
     category: { name: string; icon: string };
   };
@@ -240,15 +242,14 @@ export default function DashboardPage() {
                     className="group rounded-xl border border-border bg-card p-4 hover:border-primary/50 transition-all"
                   >
                     <div className="flex items-start gap-3 mb-3">
-                      {b.listing.logoUrl ? (
-                        <div className="relative h-10 w-10 rounded-lg overflow-hidden border border-border shrink-0">
-                          <Image src={b.listing.logoUrl} alt={b.listing.name} fill className="object-cover" />
-                        </div>
-                      ) : (
-                        <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-sm font-bold text-primary shrink-0">
-                          {b.listing.name.charAt(0)}
-                        </div>
-                      )}
+                      <div className="h-10 w-10 rounded-lg overflow-hidden border border-border shrink-0">
+                        <ListingLogo
+                          name={b.listing.name}
+                          websiteUrl={b.listing.websiteUrl}
+                          logoUrl={b.listing.logoUrl}
+                          size={40}
+                        />
+                      </div>
                       <div className="flex-1 min-w-0">
                         <Link
                           href={`/listing/${b.listing.slug}`}

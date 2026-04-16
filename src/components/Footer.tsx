@@ -89,8 +89,7 @@ const footerColumns = [
     title: "Learn",
     links: [
       { label: "Tutorials", href: "/tutorials" },
-      { label: "Blog", href: "/blog" },
-      { label: "Documentation", href: "/docs" },
+      { label: "FAQ", href: "/faq" },
     ],
   },
   {
@@ -99,7 +98,6 @@ const footerColumns = [
       { label: "About", href: "/about" },
       { label: "Pricing", href: "/pricing" },
       { label: "Contact", href: "/contact" },
-      { label: "Blog", href: "/blog" },
     ],
   },
   {
