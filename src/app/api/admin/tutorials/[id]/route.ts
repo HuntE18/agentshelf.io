@@ -69,3 +69,20 @@ export async function DELETE(
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
+
+export async function GET(
+  _req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const session = await requireAdmin();
+    if (!session) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+
+    const tutorial = await prisma.tutorial.findUnique({ where: { id: params.id } });
+    if (!tutorial) return NextResponse.json({ error: "Not found" }, { status: 404 });
+    return NextResponse.json(tutorial);
+  } catch (error) {
+    console.error("[GET /api/admin/tutorials/[id]]", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
+}

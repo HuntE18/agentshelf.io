@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { z } from "zod";
@@ -17,7 +18,6 @@ async function requireAdmin() {
 
 const updateListingSchema = z.object({
   status: z.enum(["APPROVED", "REJECTED", "PENDING"]).optional(),
-  adminNote: z.string().max(500).optional(),
   featured: z.boolean().optional(),
 });
 
@@ -44,7 +44,7 @@ export async function PATCH(
       );
     }
 
-    const { status, adminNote, featured } = result.data;
+    const { status, featured } = result.data;
 
     const listing = await prisma.listing.findUnique({
       where: { id: params.id },
@@ -59,7 +59,6 @@ export async function PATCH(
       where: { id: params.id },
       data: {
         ...(status !== undefined && { status }),
-        ...(adminNote !== undefined && { adminNote }),
         ...(featured !== undefined && { featured }),
       },
       include: {

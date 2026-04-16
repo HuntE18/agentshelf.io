@@ -604,7 +604,12 @@ export default function AdminPage() {
                         </td>
                         <td className="px-5 py-3.5">
                           <div className="flex gap-3">
-                            <button onClick={() => setTutorialModal({ mode: "edit", data: tut })} className="text-xs font-medium text-primary hover:underline">Edit</button>
+                            <button onClick={async () => {
+                              // Fetch full content before opening modal
+                              const res = await fetch(`/api/admin/tutorials/${tut.id}`);
+                              const full = await res.json();
+                              setTutorialModal({ mode: "edit", data: { ...full, relatedTools: JSON.parse(full.relatedTools || "[]") } });
+                            }} className="text-xs font-medium text-primary hover:underline">Edit</button>
                             <button onClick={() => handleDeleteTutorial(tut.id)} disabled={actioning === tut.id} className="text-xs font-medium text-red-600 hover:underline disabled:opacity-50">
                               {actioning === tut.id ? "..." : "Delete"}
                             </button>
