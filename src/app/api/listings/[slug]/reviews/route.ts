@@ -121,7 +121,7 @@ export async function POST(
     const { pros, cons, title, body: reviewBody, ...restData } = result.data;
 
     // Create review and update listing stats in a transaction
-    const review = await prisma.$transaction(async (tx) => {
+    const review = await prisma.$transaction(async (tx: any) => {
       const newReview = await tx.review.create({
         data: {
           ...restData,

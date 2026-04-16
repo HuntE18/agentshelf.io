@@ -34,7 +34,7 @@ export default async function StacksPage() {
       </div>
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {stacks.map((stack) => (
+          {stacks.map((stack: any) => (
             <Link
               key={stack.id}
               href={`/stacks/${stack.slug}`}
@@ -47,7 +47,7 @@ export default async function StacksPage() {
               <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{stack.description}</p>
               <div className="flex items-center justify-between">
                 <div className="flex -space-x-2">
-                  {stack.listings.map((listing) => (
+                  {stack.listings.map((listing: any) => (
                     <div
                       key={listing.id}
                       className="h-8 w-8 rounded-full bg-primary/10 border-2 border-background flex items-center justify-center text-xs font-bold text-primary"

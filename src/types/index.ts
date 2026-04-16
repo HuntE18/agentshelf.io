@@ -1,11 +1,75 @@
-import type {
-  Listing,
-  Category,
-  Tag,
-  Review,
-  User,
-  Prisma,
-} from "@prisma/client";
+// ─── Base model types (mirroring Prisma schema) ───────────────────────────────
+// Defined inline so this file compiles without requiring prisma generate.
+
+export type { Prisma } from "@prisma/client";
+
+export interface Listing {
+  id: string;
+  name: string;
+  slug: string;
+  tagline: string;
+  description: string;
+  logoUrl: string | null;
+  websiteUrl: string;
+  pricingModel: string;
+  pricingDetails: string | null;
+  status: string;
+  featured: boolean;
+  premiumTier: string;
+  premiumUntil: Date | null;
+  stripeCustomerId: string | null;
+  stripeSubscriptionId: string | null;
+  categoryId: string;
+  submittedById: string | null;
+  avgRating: number;
+  reviewCount: number;
+  viewCount: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  description: string | null;
+  icon: string | null;
+  color: string | null;
+  createdAt: Date;
+}
+
+export interface Tag {
+  id: string;
+  name: string;
+  slug: string;
+}
+
+export interface Review {
+  id: string;
+  rating: number;
+  title: string;
+  body: string;
+  pros: string | null;
+  cons: string | null;
+  helpful: number;
+  authorId: string;
+  listingId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface User {
+  id: string;
+  name: string | null;
+  email: string;
+  emailVerified: Date | null;
+  image: string | null;
+  passwordHash: string | null;
+  role: string;
+  bio: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 // ─── Listing ─────────────────────────────────────────────────────────────────
 

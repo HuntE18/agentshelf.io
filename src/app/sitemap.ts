@@ -67,7 +67,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       select: { slug: true, updatedAt: true },
     });
 
-    listingPages = listings.map((listing) => ({
+    listingPages = listings.map((listing: any) => ({
       url: `${baseUrl}/listing/${listing.slug}`,
       lastModified: listing.updatedAt,
       changeFrequency: "weekly" as const,
@@ -84,7 +84,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       select: { slug: true },
     });
 
-    categoryPages = categories.map((cat) => ({
+    categoryPages = categories.map((cat: any) => ({
       url: `${baseUrl}/browse?category=${encodeURIComponent(cat.slug)}`,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
@@ -101,7 +101,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       select: { slug: true, updatedAt: true },
     });
 
-    stackPages = stacks.map((stack) => ({
+    stackPages = stacks.map((stack: any) => ({
       url: `${baseUrl}/stacks/${stack.slug}`,
       lastModified: stack.updatedAt,
       changeFrequency: "weekly" as const,

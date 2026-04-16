@@ -95,7 +95,7 @@ export default async function HomePage() {
             <SearchBar />
           </div>
           <div className="flex flex-wrap justify-center gap-2">
-            {categories.slice(0, 6).map((cat) => (
+            {categories.slice(0, 6).map((cat: any) => (
               <Link
                 key={cat.id}
                 href={`/browse?category=${encodeURIComponent(cat.name)}`}
@@ -161,7 +161,7 @@ export default async function HomePage() {
               </Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featuredListings.map((listing) => (
+              {featuredListings.map((listing: any) => (
                 <ListingCard key={listing.id} listing={listing as any} />
               ))}
             </div>
@@ -182,7 +182,7 @@ export default async function HomePage() {
               </p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-              {categories.map((category) => (
+              {categories.map((category: any) => (
                 <CategoryCard key={category.id} category={category} />
               ))}
             </div>
@@ -225,7 +225,7 @@ export default async function HomePage() {
               </Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {recentListings.map((listing) => (
+              {recentListings.map((listing: any) => (
                 <ListingCard key={listing.id} listing={listing as any} />
               ))}
             </div>
@@ -247,7 +247,7 @@ export default async function HomePage() {
               </Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {trendingListings.map((listing) => (
+              {trendingListings.map((listing: any) => (
                 <ListingCard key={listing.id} listing={listing as any} />
               ))}
             </div>
@@ -269,7 +269,7 @@ export default async function HomePage() {
               </Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {stackPreviews.map((stack) => (
+              {stackPreviews.map((stack: any) => (
                 <Link
                   key={stack.id}
                   href={`/stacks/${stack.slug}`}

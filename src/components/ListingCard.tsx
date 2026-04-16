@@ -200,7 +200,7 @@ export function ListingCard({
           </Badge>
 
           {/* Tags */}
-          {(listing.tags ?? []).slice(0, 2).map((tag) => (
+          {(listing.tags ?? []).slice(0, 2).map((tag: any) => (
             <Badge key={tag.id} variant="secondary" className="text-xs">
               {tag.name}
             </Badge>

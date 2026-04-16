@@ -246,7 +246,6 @@ export default function DashboardPage() {
                         <ListingLogo
                           name={b.listing.name}
                           websiteUrl={b.listing.websiteUrl}
-                          logoUrl={b.listing.logoUrl}
                           size={40}
                         />
                       </div>
