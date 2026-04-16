@@ -286,6 +286,7 @@ model Tutorial {
   relatedTools String  @default("[]") @db.Text
   content     String   @db.Text
   published   Boolean  @default(true)
+  order       Int      @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

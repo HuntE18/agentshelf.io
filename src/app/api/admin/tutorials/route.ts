@@ -64,3 +64,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
+
+export async function PUT(req: NextRequest) {
+  try {
+    const session = await requireAdmin();
+    if (!session) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+
+    // Expects: { order: [{ id, order }] }
+    const { order } = await req.json();
+    if (!Array.isArray(order)) return NextResponse.json({ error: "Invalid body" }, { status: 400 });
+
+    await Promise.all(
+      order.map(({ id, order: o }: { id: string; order: number }) =>
+        prisma.tutorial.update({ where: { id }, data: { order: o } })
+      )
+    );
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("[PUT /api/admin/tutorials]", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
+}

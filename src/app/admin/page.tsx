@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-type AdminTab = "pending" | "all" | "users" | "reviews" | "tutorials" | "contacts" | "top-picks";
+type AdminTab = "pending" | "all" | "users" | "contacts" | "top-picks";
 
 type Listing = {
   id: string; name: string; slug: string; status: string; pricingModel: string;
@@ -26,18 +26,6 @@ type ContactSubmission = {
   message: string; createdAt: string; read: boolean;
 };
 
-type Review = {
-  id: string; rating: number; title: string; body: string; createdAt: string;
-  author: { id: string; name: string | null; email: string };
-  listing: { id: string; name: string; slug: string };
-};
-
-type Tutorial = {
-  id: string; slug: string; title: string; category: string;
-  difficulty: string; published: boolean; publishDate: string;
-  emoji: string; readTime: string;
-};
-
 const STATUS_COLORS: Record<string, string> = {
   PENDING: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
   APPROVED: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
@@ -47,12 +35,6 @@ const STATUS_COLORS: Record<string, string> = {
 const ROLE_COLORS: Record<string, string> = {
   ADMIN: "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400",
   USER: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400",
-};
-
-const DIFF_COLORS: Record<string, string> = {
-  Beginner: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
-  Intermediate: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
-  Advanced: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
 };
 
 function StarRow({ rating }: { rating: number }) {
@@ -67,126 +49,6 @@ function StarRow({ rating }: { rating: number }) {
   );
 }
 
-// ─── Tutorial form modal ──────────────────────────────────────────────────────
-
-function TutorialModal({
-  initial,
-  onSave,
-  onClose,
-}: {
-  initial?: Tutorial & { description?: string; content?: string; author?: string; relatedTools?: string[] };
-  onSave: (data: any) => Promise<void>;
-  onClose: () => void;
-}) {
-  const [form, setForm] = useState({
-    slug: initial?.slug ?? "",
-    title: initial?.title ?? "",
-    description: initial?.description ?? "",
-    category: initial?.category ?? "",
-    readTime: initial?.readTime ?? "5 min read",
-    emoji: initial?.emoji ?? "📖",
-    difficulty: initial?.difficulty ?? "Beginner",
-    publishDate: initial?.publishDate ?? new Date().toISOString().slice(0, 10),
-    author: initial?.author ?? "AgentShelf Team",
-    relatedTools: (initial?.relatedTools ?? []).join(", "),
-    content: initial?.content ?? "",
-    published: initial?.published ?? true,
-  });
-  const [saving, setSaving] = useState(false);
-  const [err, setErr] = useState("");
-
-  const handleSave = async () => {
-    setSaving(true); setErr("");
-    try {
-      await onSave({
-        ...form,
-        relatedTools: form.relatedTools.split(",").map((s: string) => s.trim()).filter(Boolean),
-        published: form.published,
-      });
-    } catch (e: any) {
-      setErr(e.message || "Save failed");
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  const field = (label: string, key: keyof typeof form, type: string = "text", rows?: number) => (
-    <div>
-      <label className="block text-xs font-medium text-muted-foreground mb-1">{label}</label>
-      {rows ? (
-        <textarea
-          value={form[key] as string}
-          onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
-          rows={rows}
-          className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-y"
-        />
-      ) : (
-        <input
-          type={type}
-          value={form[key] as string}
-          onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
-          className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-        />
-      )}
-    </div>
-  );
-
-  return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="bg-card border border-border rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between p-5 border-b border-border">
-          <h2 className="font-semibold text-foreground">{initial ? "Edit Tutorial" : "New Tutorial"}</h2>
-          <button onClick={onClose} className="text-muted-foreground hover:text-foreground text-xl leading-none">×</button>
-        </div>
-        <div className="p-5 space-y-4">
-          {err && <p className="text-xs text-destructive bg-destructive/10 rounded-lg p-3">{err}</p>}
-          <div className="grid grid-cols-2 gap-4">
-            {field("Slug", "slug")}
-            {field("Emoji", "emoji")}
-          </div>
-          {field("Title", "title")}
-          {field("Description", "description", "text", 2)}
-          <div className="grid grid-cols-3 gap-4">
-            {field("Category", "category")}
-            {field("Read Time", "readTime")}
-            <div>
-              <label className="block text-xs font-medium text-muted-foreground mb-1">Difficulty</label>
-              <select
-                value={form.difficulty}
-                onChange={e => setForm(f => ({ ...f, difficulty: e.target.value }))}
-                className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-              >
-                <option>Beginner</option><option>Intermediate</option><option>Advanced</option>
-              </select>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            {field("Author", "author")}
-            {field("Publish Date", "publishDate", "date")}
-          </div>
-          {field("Related Tools (comma-separated)", "relatedTools")}
-          {field("Content (Markdown)", "content", "text", 12)}
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={form.published}
-              onChange={e => setForm(f => ({ ...f, published: e.target.checked }))}
-              className="accent-primary h-4 w-4"
-            />
-            <span className="text-sm text-foreground">Published</span>
-          </label>
-        </div>
-        <div className="flex justify-end gap-3 p-5 border-t border-border">
-          <button onClick={onClose} className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-secondary">Cancel</button>
-          <button onClick={handleSave} disabled={saving} className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-60">
-            {saving ? "Saving..." : "Save Tutorial"}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 // ─── Main page ────────────────────────────────────────────────────────────────
 
 export default function AdminPage() {
@@ -197,16 +59,12 @@ export default function AdminPage() {
   const [allListings, setAllListings] = useState<Listing[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [contacts, setContacts] = useState<ContactSubmission[]>([]);
-  const [reviews, setReviews] = useState<Review[]>([]);
-  const [tutorials, setTutorials] = useState<Tutorial[]>([]);
   const [loading, setLoading] = useState(true);
   const [allSearch, setAllSearch] = useState("");
   const [allStatusFilter, setAllStatusFilter] = useState("ALL");
-  const [reviewSearch, setReviewSearch] = useState("");
   const [featuredSearch, setFeaturedSearch] = useState("");
   const [toastMsg, setToastMsg] = useState<{ text: string; type: "success" | "error" } | null>(null);
   const [actioning, setActioning] = useState<string | null>(null);
-  const [tutorialModal, setTutorialModal] = useState<{ mode: "create" | "edit"; data?: any } | null>(null);
 
   useEffect(() => {
     if (status === "unauthenticated") { router.push("/signin"); return; }
@@ -227,17 +85,13 @@ export default function AdminPage() {
       fetch("/api/admin/listings?limit=100").then(r => r.json()),
       fetch("/api/admin/users").then(r => r.json()),
       fetch("/api/admin/contacts").then(r => r.json()),
-      fetch("/api/admin/reviews").then(r => r.json()),
-      fetch("/api/admin/tutorials").then(r => r.json()),
     ])
-      .then(([pending, all, usrs, ctcts, revs, tuts]) => {
+      .then(([pending, all, usrs, ctcts]) => {
         // API returns { data: [...] } for listings (fixed key)
         setPendingListings(pending.data || pending.listings || []);
         setAllListings(all.data || all.listings || []);
         setUsers(usrs.users || []);
         setContacts(ctcts.contacts || []);
-        setReviews(revs.reviews || []);
-        setTutorials(tuts.tutorials || []);
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -268,67 +122,6 @@ export default function AdminPage() {
     }
   };
 
-  const handleDeleteReview = async (reviewId: string) => {
-    if (!confirm("Delete this review? This cannot be undone.")) return;
-    setActioning(reviewId);
-    try {
-      const res = await fetch(`/api/admin/reviews/${reviewId}`, { method: "DELETE" });
-      if (!res.ok) throw new Error();
-      setReviews(prev => prev.filter(r => r.id !== reviewId));
-      showToast("Review deleted", "success");
-    } catch {
-      showToast("Failed to delete review", "error");
-    } finally {
-      setActioning(null);
-    }
-  };
-
-  const handleSaveTutorial = async (data: any) => {
-    if (tutorialModal?.mode === "edit" && tutorialModal.data?.id) {
-      const res = await fetch(`/api/admin/tutorials/${tutorialModal.data.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) {
-        const j = await res.json();
-        throw new Error(j.error || "Save failed");
-      }
-      const updated = await res.json();
-      setTutorials(prev => prev.map(t => t.id === updated.id ? { ...t, ...updated } : t));
-      showToast("Tutorial updated", "success");
-    } else {
-      const res = await fetch("/api/admin/tutorials", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) {
-        const j = await res.json();
-        throw new Error(j.error || "Create failed");
-      }
-      const created = await res.json();
-      setTutorials(prev => [created, ...prev]);
-      showToast("Tutorial created", "success");
-    }
-    setTutorialModal(null);
-  };
-
-  const handleDeleteTutorial = async (id: string) => {
-    if (!confirm("Delete this tutorial? This cannot be undone.")) return;
-    setActioning(id);
-    try {
-      const res = await fetch(`/api/admin/tutorials/${id}`, { method: "DELETE" });
-      if (!res.ok) throw new Error();
-      setTutorials(prev => prev.filter(t => t.id !== id));
-      showToast("Tutorial deleted", "success");
-    } catch {
-      showToast("Failed to delete tutorial", "error");
-    } finally {
-      setActioning(null);
-    }
-  };
-
   if (status === "loading" || !session) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
@@ -346,19 +139,9 @@ export default function AdminPage() {
     return matchSearch && matchStatus;
   });
 
-  const filteredReviews = reviews.filter(r =>
-    !reviewSearch ||
-    r.title.toLowerCase().includes(reviewSearch.toLowerCase()) ||
-    r.body.toLowerCase().includes(reviewSearch.toLowerCase()) ||
-    (r.author.name || "").toLowerCase().includes(reviewSearch.toLowerCase()) ||
-    r.listing.name.toLowerCase().includes(reviewSearch.toLowerCase())
-  );
-
   const TABS: { id: AdminTab; label: string; count?: number }[] = [
     { id: "pending", label: "Pending", count: pendingListings.length },
     { id: "all", label: "All Listings", count: allListings.length },
-    { id: "reviews", label: "Reviews", count: reviews.length },
-    { id: "tutorials", label: "Tutorials", count: tutorials.length },
     { id: "users", label: "Users", count: users.length },
     { id: "contacts", label: "Contacts", count: contacts.length },
     { id: "top-picks", label: "⭐ Top Picks" },
@@ -370,14 +153,6 @@ export default function AdminPage() {
         <div className={`fixed top-4 right-4 z-50 rounded-xl px-5 py-3 text-sm font-medium text-white shadow-lg ${toastMsg.type === "success" ? "bg-green-600" : "bg-red-600"}`}>
           {toastMsg.text}
         </div>
-      )}
-
-      {tutorialModal && (
-        <TutorialModal
-          initial={tutorialModal.data}
-          onSave={handleSaveTutorial}
-          onClose={() => setTutorialModal(null)}
-        />
       )}
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -504,125 +279,8 @@ export default function AdminPage() {
         )}
 
         {/* ── Reviews ── */}
-        {tab === "reviews" && (
-          <div>
-            <input type="text" placeholder="Search reviews, authors, tools..." value={reviewSearch} onChange={e => setReviewSearch(e.target.value)}
-              className="w-full max-w-sm rounded-lg border border-input bg-background px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring mb-5" />
-            {loading ? (
-              <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="h-20 rounded-xl bg-secondary animate-pulse" />)}</div>
-            ) : filteredReviews.length === 0 ? (
-              <div className="text-center py-20"><div className="text-5xl mb-4">💬</div><p className="text-muted-foreground">No reviews found</p></div>
-            ) : (
-              <div className="rounded-xl border border-border bg-card overflow-hidden">
-                <table className="w-full text-sm">
-                  <thead className="border-b border-border bg-secondary/50">
-                    <tr>
-                      <th className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Review</th>
-                      <th className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground hidden sm:table-cell">Tool</th>
-                      <th className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground hidden md:table-cell">Author</th>
-                      <th className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground hidden md:table-cell">Date</th>
-                      <th className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-border">
-                    {filteredReviews.map(review => (
-                      <tr key={review.id} className="hover:bg-secondary/30 transition-colors">
-                        <td className="px-5 py-3.5 max-w-xs">
-                          <StarRow rating={review.rating} />
-                          <p className="font-medium text-foreground text-xs mt-1 truncate">{review.title}</p>
-                          <p className="text-xs text-muted-foreground truncate">{review.body}</p>
-                        </td>
-                        <td className="px-5 py-3.5 hidden sm:table-cell">
-                          <a href={`/listing/${review.listing.slug}`} className="text-xs font-medium text-foreground hover:text-primary">{review.listing.name}</a>
-                        </td>
-                        <td className="px-5 py-3.5 text-xs text-muted-foreground hidden md:table-cell">
-                          <p>{review.author.name || "—"}</p>
-                          <p className="text-[11px]">{review.author.email}</p>
-                        </td>
-                        <td className="px-5 py-3.5 text-xs text-muted-foreground hidden md:table-cell">{new Date(review.createdAt).toLocaleDateString()}</td>
-                        <td className="px-5 py-3.5">
-                          <button onClick={() => handleDeleteReview(review.id)} disabled={actioning === review.id}
-                            className="text-xs font-medium text-red-600 hover:underline disabled:opacity-50">
-                            {actioning === review.id ? "..." : "Delete"}
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-        )}
 
         {/* ── Tutorials ── */}
-        {tab === "tutorials" && (
-          <div>
-            <div className="flex items-center justify-between mb-5">
-              <p className="text-sm text-muted-foreground">{tutorials.length} tutorials</p>
-              <button onClick={() => setTutorialModal({ mode: "create" })}
-                className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors">
-                + New Tutorial
-              </button>
-            </div>
-            {loading ? (
-              <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="h-14 rounded-lg bg-secondary animate-pulse" />)}</div>
-            ) : tutorials.length === 0 ? (
-              <div className="text-center py-20"><div className="text-5xl mb-4">📚</div><p className="text-muted-foreground">No tutorials yet</p></div>
-            ) : (
-              <div className="rounded-xl border border-border bg-card overflow-hidden">
-                <table className="w-full text-sm">
-                  <thead className="border-b border-border bg-secondary/50">
-                    <tr>
-                      <th className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Tutorial</th>
-                      <th className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground hidden sm:table-cell">Category</th>
-                      <th className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground hidden md:table-cell">Difficulty</th>
-                      <th className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Status</th>
-                      <th className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-border">
-                    {tutorials.map(tut => (
-                      <tr key={tut.id} className="hover:bg-secondary/30 transition-colors">
-                        <td className="px-5 py-3.5">
-                          <div className="flex items-center gap-2">
-                            <span>{tut.emoji}</span>
-                            <div>
-                              <p className="font-medium text-foreground">{tut.title}</p>
-                              <p className="text-xs text-muted-foreground">{tut.readTime}</p>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-5 py-3.5 text-muted-foreground hidden sm:table-cell">{tut.category}</td>
-                        <td className="px-5 py-3.5 hidden md:table-cell">
-                          <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${DIFF_COLORS[tut.difficulty] || ""}`}>{tut.difficulty}</span>
-                        </td>
-                        <td className="px-5 py-3.5">
-                          <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${tut.published ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" : "bg-slate-100 text-slate-500"}`}>
-                            {tut.published ? "Published" : "Draft"}
-                          </span>
-                        </td>
-                        <td className="px-5 py-3.5">
-                          <div className="flex gap-3">
-                            <button onClick={async () => {
-                              // Fetch full content before opening modal
-                              const res = await fetch(`/api/admin/tutorials/${tut.id}`);
-                              const full = await res.json();
-                              setTutorialModal({ mode: "edit", data: { ...full, relatedTools: JSON.parse(full.relatedTools || "[]") } });
-                            }} className="text-xs font-medium text-primary hover:underline">Edit</button>
-                            <button onClick={() => handleDeleteTutorial(tut.id)} disabled={actioning === tut.id} className="text-xs font-medium text-red-600 hover:underline disabled:opacity-50">
-                              {actioning === tut.id ? "..." : "Delete"}
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-        )}
 
         {/* ── Users ── */}
         {tab === "users" && (
