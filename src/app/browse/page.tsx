@@ -63,7 +63,10 @@ function BrowseContent() {
       } else {
         params.set(key, value);
       }
-      params.delete("page");
+      // Reset to page 1 when changing filters, but not when changing page itself
+      if (key !== "page") {
+        params.delete("page");
+      }
       router.push(`/browse?${params.toString()}`);
     },
     [searchParams, router]
