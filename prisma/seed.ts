@@ -2581,6 +2581,45 @@ async function main() {
   console.log(`     ✓ ${purged} deprecated categories purged`);
 
 
+  // ── Step 5: Seed tutorials from static content ──────────────────────────
+  console.log("  → Seeding tutorials...");
+  let tutorialsSeeded = 0;
+  for (const t of TUTORIALS) {
+    await prisma.tutorial.upsert({
+      where: { slug: t.slug },
+      update: {
+        title: t.title,
+        description: t.description,
+        category: t.category,
+        readTime: t.readTime,
+        emoji: t.emoji,
+        difficulty: t.difficulty,
+        publishDate: t.publishDate,
+        author: t.author,
+        relatedTools: JSON.stringify(t.relatedTools),
+        content: t.content,
+        published: true,
+      },
+      create: {
+        slug: t.slug,
+        title: t.title,
+        description: t.description,
+        category: t.category,
+        readTime: t.readTime,
+        emoji: t.emoji,
+        difficulty: t.difficulty,
+        publishDate: t.publishDate,
+        author: t.author,
+        relatedTools: JSON.stringify(t.relatedTools),
+        content: t.content,
+        published: true,
+      },
+    });
+    tutorialsSeeded++;
+  }
+  console.log(`     ✓ ${tutorialsSeeded} tutorials seeded`);
+
+
   // ─── Stacks ──────────────────────────────────────────────────────────────────
   console.log("Seeding stacks...");
 

@@ -267,3 +267,28 @@ model NewsletterSubscriber {
 
   @@map("newsletter_subscribers")
 }
+
+// ============================================================================
+// Tutorials
+// ============================================================================
+
+model Tutorial {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String   @db.Text
+  category    String
+  readTime    String
+  emoji       String   @default("📖")
+  difficulty  String   @default("Beginner")
+  publishDate String
+  author      String   @default("AgentShelf Team")
+  relatedTools String  @default("[]") @db.Text
+  content     String   @db.Text
+  published   Boolean  @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("tutorials")
+}

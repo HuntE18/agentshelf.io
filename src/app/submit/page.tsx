@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Link from "next/link";
+import { Info } from "lucide-react";
 
 const submitSchema = z.object({
   name: z.string().min(2, "Tool name must be at least 2 characters"),
@@ -290,10 +291,10 @@ export default function SubmitPage() {
                   onMouseLeave={() => setPricingTooltip(false)}
                   onFocus={() => setPricingTooltip(true)}
                   onBlur={() => setPricingTooltip(false)}
-                  className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-muted text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors text-[10px] font-bold leading-none"
+                  className="inline-flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
                   aria-label="Pricing model descriptions"
                 >
-                  i
+                  <Info className="h-3.5 w-3.5" />
                 </button>
                 {pricingTooltip && (
                   <div className="absolute left-1/2 -translate-x-1/2 bottom-6 z-20 w-64 rounded-xl border border-border bg-card shadow-lg p-3 text-xs text-muted-foreground space-y-1.5">
