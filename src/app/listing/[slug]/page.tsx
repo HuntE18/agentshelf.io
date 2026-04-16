@@ -223,6 +223,7 @@ export default async function ListingPage({ params }: Props) {
               reviews={(listing.reviews ?? []).map((r: any) => ({
                 id: r.id,
                 rating: r.rating,
+                title: r.title ?? "",
                 body: r.body,
                 createdAt: r.createdAt.toISOString(),
                 user: r.author,

@@ -8,6 +8,7 @@ import Image from "next/image";
 type Review = {
   id: string;
   rating: number;
+  title: string;
   body: string;
   createdAt: string;
   user: { name: string | null; image: string | null };
@@ -80,6 +81,7 @@ export function ReviewSection({
   const [reviews, setReviews] = useState<Review[]>(initialReviews);
   const [showForm, setShowForm] = useState(false);
   const [rating, setRating] = useState(0);
+  const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -98,8 +100,12 @@ export function ReviewSection({
       setRatingError("Please select a rating");
       return;
     }
-    if (body.trim().length < 10) {
-      setError("Review must be at least 10 characters");
+    if (title.trim().length < 5) {
+      setError("Title must be at least 5 characters");
+      return;
+    }
+    if (body.trim().length < 20) {
+      setError("Review must be at least 20 characters");
       return;
     }
 
@@ -108,17 +114,33 @@ export function ReviewSection({
       const res = await fetch(`/api/listings/${listingSlug}/reviews`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ rating, body: body.trim() }),
+        body: JSON.stringify({ rating, title: title.trim(), body: body.trim() }),
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || "Failed to submit review");
+        // Show field-level errors if present
+        if (data.details) {
+          const msgs = Object.values(data.details as Record<string, string[]>).flat();
+          setError(msgs.join(" • ") || data.error || "Failed to submit review");
+        } else {
+          setError(data.error || "Failed to submit review");
+        }
         setSubmitting(false);
         return;
       }
-      setReviews((prev) => [data.review, ...prev]);
+      // API returns the review object directly (not wrapped)
+      const newReview: Review = {
+        id: data.id,
+        rating: data.rating,
+        title: data.title,
+        body: data.body,
+        createdAt: data.createdAt,
+        user: data.author ?? { name: (session.user?.name ?? null), image: (session.user?.image ?? null) },
+      };
+      setReviews((prev) => [newReview, ...prev]);
       setShowForm(false);
       setRating(0);
+      setTitle("");
       setBody("");
     } catch {
       setError("Network error. Please try again.");
@@ -164,6 +186,8 @@ export function ReviewSection({
           <h3 className="text-sm font-semibold text-foreground">
             Your review of {listingName}
           </h3>
+
+          {/* Rating */}
           <div>
             <label className="block text-xs font-medium text-muted-foreground mb-2">
               Rating
@@ -173,21 +197,42 @@ export function ReviewSection({
               <p className="mt-1 text-xs text-destructive">{ratingError}</p>
             )}
           </div>
+
+          {/* Title */}
           <div>
             <label className="block text-xs font-medium text-muted-foreground mb-1.5">
-              Review
+              Review title
+            </label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Summarize your experience in a sentence"
+              maxLength={100}
+              className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+            />
+          </div>
+
+          {/* Body */}
+          <div>
+            <label className="block text-xs font-medium text-muted-foreground mb-1.5">
+              Full review
             </label>
             <textarea
               value={body}
               onChange={(e) => setBody(e.target.value)}
               rows={4}
-              placeholder="Share your honest experience with this tool..."
+              placeholder="Share your honest experience — what worked, what didn't, who it's best for..."
               className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
             />
+            <p className="mt-1 text-xs text-muted-foreground text-right">
+              {body.length} / 5000
+            </p>
             {error && (
               <p className="mt-1 text-xs text-destructive">{error}</p>
             )}
           </div>
+
           <div className="flex gap-2">
             <button
               type="submit"
@@ -202,6 +247,8 @@ export function ReviewSection({
                 setShowForm(false);
                 setError("");
                 setRatingError("");
+                setTitle("");
+                setBody("");
               }}
               className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-secondary transition-colors"
             >
@@ -230,7 +277,7 @@ export function ReviewSection({
               className="border-b border-border last:border-0 pb-5 last:pb-0"
             >
               <div className="flex items-start gap-3">
-                {review.user.image ? (
+                {review.user?.image ? (
                   <Image
                     src={review.user.image}
                     alt={review.user.name || "User"}
@@ -240,20 +287,25 @@ export function ReviewSection({
                   />
                 ) : (
                   <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center text-sm font-semibold text-primary shrink-0">
-                    {(review.user.name || "U").charAt(0)}
+                    {(review.user?.name || "U").charAt(0).toUpperCase()}
                   </div>
                 )}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2 mb-1">
                     <span className="text-sm font-semibold text-foreground">
-                      {review.user.name || "Anonymous"}
+                      {review.user?.name || "Anonymous"}
                     </span>
                     <span className="text-xs text-muted-foreground whitespace-nowrap">
-                      {new Date(review.createdAt).toLocaleDateString()}
+                      {new Date(review.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                     </span>
                   </div>
                   <StarRow rating={review.rating} />
-                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                  {review.title && (
+                    <p className="mt-1.5 text-sm font-medium text-foreground">
+                      {review.title}
+                    </p>
+                  )}
+                  <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
                     {review.body}
                   </p>
                 </div>

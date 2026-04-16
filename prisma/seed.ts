@@ -166,7 +166,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "chatbots-llms",
     avgRating: 4.7,
     reviewCount: 0,
-    viewCount: 18420,
+    viewCount: 2240,
   },
   {
     name: "Claude",
@@ -184,7 +184,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "chatbots-llms",
     avgRating: 4.8,
     reviewCount: 0,
-    viewCount: 14850,
+    viewCount: 1830,
   },
   {
     name: "Gemini",
@@ -202,7 +202,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "chatbots-llms",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 9200,
+    viewCount: 1140,
   },
   {
     name: "Grok",
@@ -220,7 +220,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "chatbots-llms",
     avgRating: 4.1,
     reviewCount: 0,
-    viewCount: 5600,
+    viewCount: 690,
   },
   {
     name: "Meta Llama",
@@ -238,7 +238,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "chatbots-llms",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 6100,
+    viewCount: 740,
   },
   {
     name: "Mistral AI",
@@ -256,7 +256,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "chatbots-llms",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 4800,
+    viewCount: 590,
   },
   {
     name: "Cohere Command",
@@ -274,7 +274,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "chatbots-llms",
     avgRating: 4.2,
     reviewCount: 0,
-    viewCount: 3200,
+    viewCount: 390,
   },
   {
     name: "DeepSeek",
@@ -292,7 +292,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "chatbots-llms",
     avgRating: 4.5,
     reviewCount: 0,
-    viewCount: 7300,
+    viewCount: 890,
   },
   {
     name: "Pi by Inflection",
@@ -310,7 +310,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "chatbots-llms",
     avgRating: 4.0,
     reviewCount: 0,
-    viewCount: 2800,
+    viewCount: 340,
   },
 
   // ── Code & Dev Tools ─────────────────────────────────────────────────────
@@ -330,7 +330,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "coding-development",
     avgRating: 4.6,
     reviewCount: 0,
-    viewCount: 16200,
+    viewCount: 1970,
   },
   {
     name: "Cursor",
@@ -348,7 +348,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "coding-development",
     avgRating: 4.8,
     reviewCount: 0,
-    viewCount: 12400,
+    viewCount: 1510,
   },
   {
     name: "Replit AI",
@@ -366,7 +366,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "coding-development",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 7600,
+    viewCount: 930,
   },
   {
     name: "Claude Code",
@@ -384,7 +384,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "coding-development",
     avgRating: 4.7,
     reviewCount: 0,
-    viewCount: 5900,
+    viewCount: 720,
   },
   {
     name: "Amazon Q Developer",
@@ -402,7 +402,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "coding-development",
     avgRating: 4.1,
     reviewCount: 0,
-    viewCount: 3800,
+    viewCount: 460,
   },
   {
     name: "Windsurf by Codeium",
@@ -420,7 +420,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "coding-development",
     avgRating: 4.5,
     reviewCount: 0,
-    viewCount: 6400,
+    viewCount: 780,
   },
   {
     name: "Bolt.new",
@@ -438,7 +438,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "coding-development",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 8100,
+    viewCount: 990,
   },
   {
     name: "v0 by Vercel",
@@ -456,7 +456,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "coding-development",
     avgRating: 4.5,
     reviewCount: 0,
-    viewCount: 9800,
+    viewCount: 1190,
   },
   {
     name: "Tabnine",
@@ -474,7 +474,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "coding-development",
     avgRating: 4.0,
     reviewCount: 0,
-    viewCount: 3100,
+    viewCount: 380,
   },
   {
     name: "Cody by Sourcegraph",
@@ -492,7 +492,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "coding-development",
     avgRating: 4.2,
     reviewCount: 0,
-    viewCount: 2700,
+    viewCount: 330,
   },
   {
     name: "Aider",
@@ -510,7 +510,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "coding-development",
     avgRating: 4.5,
     reviewCount: 0,
-    viewCount: 4200,
+    viewCount: 510,
   },
   {
     name: "Sweep AI",
@@ -546,7 +546,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "coding-development",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 2900,
+    viewCount: 350,
   },
   {
     name: "Mutable AI",
@@ -564,7 +564,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "coding-development",
     avgRating: 4.0,
     reviewCount: 0,
-    viewCount: 1800,
+    viewCount: 220,
   },
   {
     name: "Codium AI",
@@ -582,7 +582,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "coding-development",
     avgRating: 4.2,
     reviewCount: 0,
-    viewCount: 2100,
+    viewCount: 260,
   },
 
   // ── Image Generation ─────────────────────────────────────────────────────
@@ -620,7 +620,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "image-generation",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 7800,
+    viewCount: 950,
   },
   {
     name: "Stable Diffusion",
@@ -638,7 +638,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "image-generation",
     avgRating: 4.5,
     reviewCount: 0,
-    viewCount: 8400,
+    viewCount: 1020,
   },
   {
     name: "Adobe Firefly",
@@ -656,7 +656,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "image-generation",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 5200,
+    viewCount: 630,
   },
   {
     name: "Ideogram",
@@ -674,7 +674,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "image-generation",
     avgRating: 4.5,
     reviewCount: 0,
-    viewCount: 4300,
+    viewCount: 520,
   },
   {
     name: "Leonardo AI",
@@ -692,7 +692,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "image-generation",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 5700,
+    viewCount: 700,
   },
   {
     name: "Flux by Black Forest Labs",
@@ -710,7 +710,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "image-generation",
     avgRating: 4.7,
     reviewCount: 0,
-    viewCount: 6200,
+    viewCount: 750,
   },
 
   // ── Video & Audio ─────────────────────────────────────────────────────────
@@ -730,7 +730,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "video-animation",
     avgRating: 4.5,
     reviewCount: 0,
-    viewCount: 7200,
+    viewCount: 870,
   },
   {
     name: "Sora by OpenAI",
@@ -748,7 +748,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "video-animation",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 9100,
+    viewCount: 1110,
   },
   {
     name: "ElevenLabs",
@@ -766,7 +766,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "audio-music",
     avgRating: 4.8,
     reviewCount: 0,
-    viewCount: 11300,
+    viewCount: 1370,
   },
   {
     name: "Suno AI",
@@ -784,7 +784,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "audio-music",
     avgRating: 4.5,
     reviewCount: 0,
-    viewCount: 6700,
+    viewCount: 820,
   },
   {
     name: "HeyGen",
@@ -802,7 +802,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "video-animation",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 4900,
+    viewCount: 600,
   },
   {
     name: "Descript",
@@ -820,7 +820,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "video-animation",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 4100,
+    viewCount: 500,
   },
 
   // ── Writing & Content ─────────────────────────────────────────────────────
@@ -840,7 +840,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "writing-content",
     avgRating: 4.2,
     reviewCount: 0,
-    viewCount: 5100,
+    viewCount: 620,
   },
   {
     name: "Copy.ai",
@@ -858,7 +858,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "writing-content",
     avgRating: 4.1,
     reviewCount: 0,
-    viewCount: 3800,
+    viewCount: 460,
   },
   {
     name: "Writesonic",
@@ -876,7 +876,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "writing-content",
     avgRating: 4.0,
     reviewCount: 0,
-    viewCount: 3200,
+    viewCount: 390,
   },
   {
     name: "Grammarly",
@@ -894,7 +894,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "writing-content",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 8600,
+    viewCount: 1050,
   },
   {
     name: "Notion AI",
@@ -912,7 +912,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "writing-content",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 5900,
+    viewCount: 720,
   },
   {
     name: "Tome",
@@ -930,7 +930,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "writing-content",
     avgRating: 4.1,
     reviewCount: 0,
-    viewCount: 3400,
+    viewCount: 410,
   },
   {
     name: "Gamma",
@@ -948,7 +948,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "writing-content",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 4100,
+    viewCount: 500,
   },
   {
     name: "Beautiful.ai",
@@ -966,7 +966,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "writing-content",
     avgRating: 4.2,
     reviewCount: 0,
-    viewCount: 2800,
+    viewCount: 340,
   },
   {
     name: "Anyword",
@@ -984,7 +984,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "writing-content",
     avgRating: 4.1,
     reviewCount: 0,
-    viewCount: 2200,
+    viewCount: 270,
   },
   {
     name: "Hypotenuse AI",
@@ -1002,7 +1002,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "writing-content",
     avgRating: 4.0,
     reviewCount: 0,
-    viewCount: 1900,
+    viewCount: 230,
   },
 
   // ── Autonomous Agents ─────────────────────────────────────────────────────
@@ -1022,7 +1022,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "autonomous-agents",
     avgRating: 4.0,
     reviewCount: 0,
-    viewCount: 9400,
+    viewCount: 1150,
   },
   {
     name: "CrewAI",
@@ -1058,7 +1058,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "autonomous-agents",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 7800,
+    viewCount: 950,
   },
   {
     name: "Microsoft AutoGen",
@@ -1076,7 +1076,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "autonomous-agents",
     avgRating: 4.2,
     reviewCount: 0,
-    viewCount: 4700,
+    viewCount: 570,
   },
   {
     name: "BabyAGI",
@@ -1094,7 +1094,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "autonomous-agents",
     avgRating: 3.8,
     reviewCount: 0,
-    viewCount: 3200,
+    viewCount: 390,
   },
   {
     name: "Phidata",
@@ -1112,7 +1112,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "autonomous-agents",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 2900,
+    viewCount: 350,
   },
   {
     name: "Composio",
@@ -1130,7 +1130,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "autonomous-agents",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 2600,
+    viewCount: 320,
   },
   {
     name: "AgentGPT",
@@ -1148,7 +1148,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "autonomous-agents",
     avgRating: 3.9,
     reviewCount: 0,
-    viewCount: 4300,
+    viewCount: 520,
   },
   {
     name: "SuperAGI",
@@ -1166,7 +1166,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "autonomous-agents",
     avgRating: 4.1,
     reviewCount: 0,
-    viewCount: 3600,
+    viewCount: 440,
   },
   {
     name: "Fixie AI",
@@ -1184,7 +1184,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "autonomous-agents",
     avgRating: 4.0,
     reviewCount: 0,
-    viewCount: 2100,
+    viewCount: 260,
   },
 
   // ── Workflow Automation ───────────────────────────────────────────────────
@@ -1204,7 +1204,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "automation-workflows",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 6800,
+    viewCount: 830,
   },
   {
     name: "Make",
@@ -1222,7 +1222,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "automation-workflows",
     avgRating: 4.5,
     reviewCount: 0,
-    viewCount: 5100,
+    viewCount: 620,
   },
   {
     name: "n8n",
@@ -1240,7 +1240,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "automation-workflows",
     avgRating: 4.6,
     reviewCount: 0,
-    viewCount: 5800,
+    viewCount: 710,
   },
   {
     name: "Lindy AI",
@@ -1258,7 +1258,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "automation-workflows",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 3200,
+    viewCount: 390,
   },
   {
     name: "Relevance AI",
@@ -1276,7 +1276,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "automation-workflows",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 2900,
+    viewCount: 350,
   },
 
   // ── Productivity ──────────────────────────────────────────────────────────
@@ -1296,7 +1296,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "productivity",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 4200,
+    viewCount: 510,
   },
   {
     name: "Fireflies.ai",
@@ -1314,7 +1314,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "productivity",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 3800,
+    viewCount: 460,
   },
   {
     name: "Synthesia",
@@ -1332,7 +1332,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "productivity",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 3600,
+    viewCount: 440,
   },
   {
     name: "Mem AI",
@@ -1350,7 +1350,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "productivity",
     avgRating: 4.1,
     reviewCount: 0,
-    viewCount: 2400,
+    viewCount: 290,
   },
   {
     name: "Reclaim AI",
@@ -1368,7 +1368,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "productivity",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 3100,
+    viewCount: 380,
   },
   {
     name: "Motion",
@@ -1386,7 +1386,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "productivity",
     avgRating: 4.2,
     reviewCount: 0,
-    viewCount: 2700,
+    viewCount: 330,
   },
   {
     name: "Superhuman AI",
@@ -1424,7 +1424,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "search-research",
     avgRating: 4.5,
     reviewCount: 0,
-    viewCount: 3200,
+    viewCount: 390,
   },
   {
     name: "You.com",
@@ -1442,7 +1442,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "search-research",
     avgRating: 4.1,
     reviewCount: 0,
-    viewCount: 2800,
+    viewCount: 340,
   },
   {
     name: "Exa AI",
@@ -1460,7 +1460,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "search-research",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 2400,
+    viewCount: 290,
   },
   {
     name: "Phind",
@@ -1496,7 +1496,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "search-research",
     avgRating: 4.5,
     reviewCount: 0,
-    viewCount: 2900,
+    viewCount: 350,
   },
   {
     name: "Elicit",
@@ -1514,7 +1514,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "search-research",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 2600,
+    viewCount: 320,
   },
   {
     name: "Perplexity AI",
@@ -1532,7 +1532,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "search-research",
     avgRating: 4.6,
     reviewCount: 0,
-    viewCount: 8900,
+    viewCount: 1080,
   },
 
   // ── Data & Analytics ──────────────────────────────────────────────────────
@@ -1552,7 +1552,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "data-analytics",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 3200,
+    viewCount: 390,
   },
   {
     name: "Hex AI",
@@ -1570,7 +1570,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "data-analytics",
     avgRating: 4.5,
     reviewCount: 0,
-    viewCount: 2900,
+    viewCount: 350,
   },
   {
     name: "MindsDB",
@@ -1588,7 +1588,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "data-analytics",
     avgRating: 4.2,
     reviewCount: 0,
-    viewCount: 2400,
+    viewCount: 290,
   },
   {
     name: "Rows AI",
@@ -1606,7 +1606,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "data-analytics",
     avgRating: 4.1,
     reviewCount: 0,
-    viewCount: 1900,
+    viewCount: 230,
   },
   {
     name: "Obviously AI",
@@ -1624,7 +1624,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "data-analytics",
     avgRating: 4.0,
     reviewCount: 0,
-    viewCount: 1600,
+    viewCount: 190,
   },
 
   // ── Design & Creative ─────────────────────────────────────────────────────
@@ -1644,7 +1644,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "design-creative",
     avgRating: 4.5,
     reviewCount: 0,
-    viewCount: 9200,
+    viewCount: 1140,
   },
   {
     name: "Figma AI",
@@ -1662,7 +1662,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "design-creative",
     avgRating: 4.6,
     reviewCount: 0,
-    viewCount: 7100,
+    viewCount: 860,
   },
   {
     name: "Looka",
@@ -1680,7 +1680,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "design-creative",
     avgRating: 4.1,
     reviewCount: 0,
-    viewCount: 3800,
+    viewCount: 460,
   },
   {
     name: "Uizard",
@@ -1698,7 +1698,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "design-creative",
     avgRating: 4.0,
     reviewCount: 0,
-    viewCount: 2700,
+    viewCount: 330,
   },
   {
     name: "Krea AI",
@@ -1734,7 +1734,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "design-creative",
     avgRating: 4.2,
     reviewCount: 0,
-    viewCount: 2100,
+    viewCount: 260,
   },
   {
     name: "Vizcom",
@@ -1772,7 +1772,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "marketing-sales",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 4800,
+    viewCount: 590,
   },
   {
     name: "Clay",
@@ -1790,7 +1790,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "marketing-sales",
     avgRating: 4.6,
     reviewCount: 0,
-    viewCount: 4200,
+    viewCount: 510,
   },
   {
     name: "Lavender AI",
@@ -1808,7 +1808,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "marketing-sales",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 3100,
+    viewCount: 380,
   },
   {
     name: "Instantly AI",
@@ -1826,7 +1826,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "marketing-sales",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 3400,
+    viewCount: 410,
   },
   {
     name: "Regie.ai",
@@ -1844,7 +1844,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "marketing-sales",
     avgRating: 4.1,
     reviewCount: 0,
-    viewCount: 2400,
+    viewCount: 290,
   },
   {
     name: "Smartwriter AI",
@@ -1862,7 +1862,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "marketing-sales",
     avgRating: 4.0,
     reviewCount: 0,
-    viewCount: 2100,
+    viewCount: 260,
   },
 
   // ── Customer Support ──────────────────────────────────────────────────────
@@ -1900,7 +1900,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "customer-support",
     avgRating: 4.2,
     reviewCount: 0,
-    viewCount: 2800,
+    viewCount: 340,
   },
   {
     name: "Tidio AI",
@@ -1918,7 +1918,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "customer-support",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 3400,
+    viewCount: 410,
   },
   {
     name: "Forethought",
@@ -1936,7 +1936,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "customer-support",
     avgRating: 4.1,
     reviewCount: 0,
-    viewCount: 2100,
+    viewCount: 260,
   },
   {
     name: "Kustomer AI",
@@ -1954,7 +1954,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "customer-support",
     avgRating: 4.2,
     reviewCount: 0,
-    viewCount: 2400,
+    viewCount: 290,
   },
 
   // ── Education & Learning ──────────────────────────────────────────────────
@@ -1974,7 +1974,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "education-learning",
     avgRating: 4.5,
     reviewCount: 0,
-    viewCount: 3700,
+    viewCount: 450,
   },
   {
     name: "Duolingo Max",
@@ -1992,7 +1992,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "education-learning",
     avgRating: 4.6,
     reviewCount: 0,
-    viewCount: 6200,
+    viewCount: 750,
   },
   {
     name: "Quizlet AI",
@@ -2010,7 +2010,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "education-learning",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 5100,
+    viewCount: 620,
   },
   {
     name: "Photomath",
@@ -2028,7 +2028,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "education-learning",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 4800,
+    viewCount: 590,
   },
   {
     name: "Socratic by Google",
@@ -2064,7 +2064,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "education-learning",
     avgRating: 4.1,
     reviewCount: 0,
-    viewCount: 2200,
+    viewCount: 270,
   },
 
   // ── Meetings & Collaboration ──────────────────────────────────────────────
@@ -2084,7 +2084,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "productivity",
     avgRating: 4.7,
     reviewCount: 0,
-    viewCount: 4800,
+    viewCount: 590,
   },
   {
     name: "tl;dv",
@@ -2120,7 +2120,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "productivity",
     avgRating: 4.5,
     reviewCount: 0,
-    viewCount: 4200,
+    viewCount: 510,
   },
   {
     name: "Read AI",
@@ -2138,7 +2138,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "productivity",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 2900,
+    viewCount: 350,
   },
   {
     name: "Sembly AI",
@@ -2156,7 +2156,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "productivity",
     avgRating: 4.2,
     reviewCount: 0,
-    viewCount: 2400,
+    viewCount: 290,
   },
   {
     name: "Fellow AI",
@@ -2174,7 +2174,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "productivity",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 3100,
+    viewCount: 380,
   },
 
   // ── 3D & Spatial ──────────────────────────────────────────────────────────
@@ -2194,7 +2194,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "3d-spatial",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 3600,
+    viewCount: 440,
   },
   {
     name: "Luma AI",
@@ -2212,7 +2212,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "3d-spatial",
     avgRating: 4.5,
     reviewCount: 0,
-    viewCount: 4100,
+    viewCount: 500,
   },
   {
     name: "Spline AI",
@@ -2230,7 +2230,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "3d-spatial",
     avgRating: 4.4,
     reviewCount: 0,
-    viewCount: 3800,
+    viewCount: 460,
   },
   {
     name: "CSM AI",
@@ -2266,7 +2266,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "3d-spatial",
     avgRating: 4.1,
     reviewCount: 0,
-    viewCount: 1900,
+    viewCount: 230,
   },
 
   // ── Music & Audio ─────────────────────────────────────────────────────────
@@ -2286,7 +2286,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "audio-music",
     avgRating: 4.5,
     reviewCount: 0,
-    viewCount: 4200,
+    viewCount: 510,
   },
   {
     name: "AIVA",
@@ -2304,7 +2304,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "audio-music",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 3100,
+    viewCount: 380,
   },
   {
     name: "Boomy",
@@ -2322,7 +2322,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "audio-music",
     avgRating: 4.0,
     reviewCount: 0,
-    viewCount: 2800,
+    viewCount: 340,
   },
   {
     name: "Soundraw",
@@ -2340,7 +2340,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "audio-music",
     avgRating: 4.3,
     reviewCount: 0,
-    viewCount: 3400,
+    viewCount: 410,
   },
   {
     name: "Mubert",
@@ -2358,7 +2358,7 @@ const LISTINGS: ListingInput[] = [
     categorySlug: "audio-music",
     avgRating: 4.1,
     reviewCount: 0,
-    viewCount: 2600,
+    viewCount: 320,
   },
 ];
 
@@ -2383,6 +2383,7 @@ async function main() {
   console.log("Admin account ready: hunterpadlo@gmail.com");
 
   // ── Step 0: Clean up renamed/removed categories from old seed ───────────
+  // Also delete any fully deprecated/empty categories from DB at the end
   // Rename old category slugs so their display names don't conflict with new
   // INSERT operations. e.g. old slug="education" had name="Education & Learning"
   // which is identical to the new slug="education-learning" — this triggers a
@@ -2453,6 +2454,133 @@ async function main() {
   }
   console.log(`     ✓ ${LISTINGS.length} listings upserted`);
 
+  // ── Step 3: Seed realistic reviews ──────────────────────────────────────
+  console.log("  → Seeding reviews...");
+
+  // Create a pool of realistic reviewer accounts
+  const reviewers = [
+    { name: "Alex Chen", email: "alex.chen.dev@example.com" },
+    { name: "Sarah Mitchell", email: "sarah.m.techwriter@example.com" },
+    { name: "Jordan Lee", email: "jordan.lee.ai@example.com" },
+    { name: "Priya Sharma", email: "priya.sharma.pm@example.com" },
+    { name: "Marcus Webb", email: "marcus.webb.eng@example.com" },
+    { name: "Emma Rodriguez", email: "emma.r.designer@example.com" },
+    { name: "David Kim", email: "david.kim.founder@example.com" },
+    { name: "Lisa Park", email: "lisa.park.content@example.com" },
+    { name: "Tom Nguyen", email: "tom.nguyen.dev@example.com" },
+    { name: "Rachel Foster", email: "rachel.foster.ops@example.com" },
+  ];
+
+  const reviewerIds: string[] = [];
+  for (const r of reviewers) {
+    const u = await prisma.user.upsert({
+      where: { email: r.email },
+      update: {},
+      create: { name: r.name, email: r.email, role: "USER" },
+    });
+    reviewerIds.push(u.id);
+  }
+
+  type SeedReview = { listingSlug: string; reviewerIdx: number; rating: number; title: string; body: string; daysAgo: number };
+
+  const SEEDED_REVIEWS: SeedReview[] = [
+    // ChatGPT
+    { listingSlug: "chatgpt", reviewerIdx: 0, rating: 5, title: "Completely changed how I work", body: "I use ChatGPT every single day — for drafting emails, debugging code, summarizing long documents, and brainstorming. GPT-4o is impressively fast and the vision capabilities are a huge bonus. The context window is large enough for most real tasks. Only gripe is occasional refusals that feel overly cautious.", daysAgo: 12 },
+    { listingSlug: "chatgpt", reviewerIdx: 1, rating: 4, title: "Best general-purpose AI, but pricey", body: "The quality of responses is hard to beat. I downgraded from Plus and immediately noticed the gap — GPT-3.5 just isn't in the same league. The Plus subscription at $20/mo is worth it if you use it heavily. My one criticism is that it occasionally loses track of earlier conversation context in very long chats.", daysAgo: 28 },
+    { listingSlug: "chatgpt", reviewerIdx: 4, rating: 4, title: "The benchmark everyone else is measured against", body: "Whether or not it's the best AI for every task, it's the one I reach for first. The plugin ecosystem and web browsing add a lot of value for research tasks. Code Interpreter is excellent for quick data analysis. Would give 5 stars if the API pricing weren't quite so high for production use.", daysAgo: 45 },
+    // Claude
+    { listingSlug: "claude", reviewerIdx: 2, rating: 5, title: "The most thoughtful AI I've used", body: "Claude consistently gives more nuanced answers than the competition. It pushes back when something seems off rather than just agreeing, and the writing quality is noticeably better for long-form content. The 200k context window is a genuine game-changer for working with large codebases or documents.", daysAgo: 8 },
+    { listingSlug: "claude", reviewerIdx: 5, rating: 5, title: "My go-to for writing and analysis", body: "I tried switching back to GPT-4 after a few months and couldn't do it. Claude's writing feels more natural and less 'AI-generated'. The Projects feature for maintaining context across conversations is excellent. Highly recommend for anyone doing content creation or research.", daysAgo: 19 },
+    // GitHub Copilot
+    { listingSlug: "github-copilot", reviewerIdx: 0, rating: 5, title: "Paid for itself in the first week", body: "I was skeptical at first but Copilot genuinely makes me faster. It's particularly good at filling out boilerplate, suggesting test cases, and completing repetitive patterns. The VS Code integration is seamless. For $10/month as an individual dev this is a no-brainer.", daysAgo: 14 },
+    { listingSlug: "github-copilot", reviewerIdx: 8, rating: 4, title: "Good but not magic", body: "It's a solid autocomplete upgrade, not a full code generation tool. Excels at finishing functions you've started, less good at generating something complex from scratch. The Copilot Chat feature has improved a lot and the slash commands are useful. Tab + enter becomes muscle memory fast.", daysAgo: 31 },
+    // Cursor
+    { listingSlug: "cursor", reviewerIdx: 4, rating: 5, title: "This is what AI-assisted coding should feel like", body: "Cursor is built around AI from the ground up, not bolted on. The Cmd+K inline edits are incredibly fast, the codebase-wide @ references work reliably, and the model quality is top tier. I've been using it full-time for 3 months and genuinely can't imagine going back to VS Code without it.", daysAgo: 6 },
+    { listingSlug: "cursor", reviewerIdx: 3, rating: 4, title: "Steep price but worth it for serious devs", body: "At $20/mo it's one of the pricier dev tools, but the productivity gains are real. The multi-file editing is what sets it apart — it can make coordinated changes across your whole project. Sometimes generates code that looks right but has subtle logic errors, so review everything carefully.", daysAgo: 22 },
+    // Midjourney
+    { listingSlug: "midjourney", reviewerIdx: 5, rating: 5, title: "Still the best for high-quality imagery", body: "I've tried DALL-E 3, Stable Diffusion, and Firefly extensively. Midjourney v6 produces the most aesthetically pleasing results consistently. The prompt-following has improved dramatically. My only complaint is that the Discord-only interface is clunky — the web app is getting better though.", daysAgo: 17 },
+    { listingSlug: "midjourney", reviewerIdx: 6, rating: 4, title: "Unmatched quality, frustrating workflow", body: "The output quality is genuinely stunning — clients can't believe these are AI-generated. But the workflow is not designed for professionals who need to iterate quickly. Upscaling, variations, and blending are powerful but the queue times during peak hours are annoying. Worth it for the quality.", daysAgo: 38 },
+    // Perplexity AI
+    { listingSlug: "perplexity-ai", reviewerIdx: 1, rating: 5, title: "Replaced Google for research tasks", body: "I use Perplexity for almost all my research now. The cited answers save so much time — I can see exactly where information is coming from and verify it. The Pro plan with file upload and longer answers is excellent for deep research. The daily search limit on free is a bit tight but understandable.", daysAgo: 9 },
+    { listingSlug: "perplexity-ai", reviewerIdx: 7, rating: 4, title: "Great for quick research, not for complex reasoning", body: "For 'what is X' or 'who made Y' type questions it's excellent. Where it falls short is multi-step reasoning or tasks that require integrating a lot of disparate information. The sources aren't always high quality either. But as a first research tool it's indispensable.", daysAgo: 26 },
+    // ElevenLabs
+    { listingSlug: "elevenlabs", reviewerIdx: 7, rating: 5, title: "Voice quality is genuinely shocking", body: "I produce a weekly podcast and started using ElevenLabs for intro/outro narration. The voices are indistinguishable from human to most listeners. Voice cloning from a short sample is spooky good. The free tier is limited but gives you enough to test if it's right for your use case.", daysAgo: 11 },
+    // Notion AI
+    { listingSlug: "notion-ai", reviewerIdx: 3, rating: 4, title: "Useful if you're already in Notion", body: "The integration is the selling point — having AI right inside your workspace eliminates context switching. Summarizing meeting notes and drafting templates is where it shines. The $10/month add-on feels steep when competitors offer similar features at lower prices, but the convenience factor is real.", daysAgo: 20 },
+    // Zapier AI
+    { listingSlug: "zapier-ai", reviewerIdx: 9, rating: 4, title: "Solid automation with AI smarts", body: "Zapier's AI features have made it much easier to set up complex workflows without knowing exactly which APIs to call. The natural language automation builder is surprisingly good at understanding intent. For non-technical users trying to automate their tools, this is the easiest entry point.", daysAgo: 35 },
+    // Runway ML
+    { listingSlug: "runway", reviewerIdx: 6, rating: 4, title: "Impressive capabilities, high price", body: "Gen-3 Alpha produces some genuinely stunning video clips. The motion brush and camera controls give you real creative control that text-to-video tools usually lack. The credits evaporate quickly though — a single 10-second clip can cost several dollars worth. Best for high-value projects.", daysAgo: 15 },
+    // LangChain
+    { listingSlug: "langchain", reviewerIdx: 8, rating: 3, title: "Powerful but overly complex", body: "LangChain has everything you need to build LLM applications but the API has too many abstractions that obscure what's actually happening. I've found it easier to write direct API calls for simple use cases. Where it shines is RAG pipelines and complex agent workflows — the ecosystem of integrations is unmatched.", daysAgo: 42 },
+    // DALL-E
+    { listingSlug: "dall-e-3", reviewerIdx: 2, rating: 4, title: "Best for prompt-following, not artistic quality", body: "DALL-E 3 follows text prompts more accurately than Midjourney, which makes it better for specific visualizations. The quality is good but not as aesthetically polished. Being built into ChatGPT means I reach for it when I need something quick. For professional creative work, Midjourney still wins.", daysAgo: 29 },
+    // Suno AI
+    { listingSlug: "suno-ai", reviewerIdx: 9, rating: 5, title: "Absurdly good music generation", body: "I described a lo-fi hip hop track with specific mood and instrumentation, and Suno produced something I'd actually listen to. The vocals are miles ahead of what was possible 6 months ago. For content creators who need background music this is incredibly valuable. The free daily credits are generous.", daysAgo: 7 },
+    // Copy.ai
+    { listingSlug: "copy-ai", reviewerIdx: 1, rating: 3, title: "Good starting point, needs heavy editing", body: "Copy.ai produces reasonable first drafts for marketing copy but I always need to rewrite substantially. The templates for ads, product descriptions, and emails are helpful for getting unstuck. Worth it for the workflows feature if you're producing high volumes of similar content. Not a replacement for a skilled copywriter.", daysAgo: 50 },
+  ];
+
+  let reviewsSeeded = 0;
+  for (const sr of SEEDED_REVIEWS) {
+    const listing = await prisma.listing.findUnique({ where: { slug: sr.listingSlug }, select: { id: true } });
+    if (!listing) continue;
+    const authorId = reviewerIds[sr.reviewerIdx % reviewerIds.length];
+    const existing = await prisma.review.findFirst({ where: { listingId: listing.id, authorId } });
+    if (existing) continue;
+
+    const createdAt = new Date(Date.now() - sr.daysAgo * 24 * 60 * 60 * 1000);
+    await prisma.review.create({
+      data: {
+        rating: sr.rating,
+        title: sr.title,
+        body: sr.body,
+        listingId: listing.id,
+        authorId,
+        createdAt,
+        updatedAt: createdAt,
+      },
+    });
+    reviewsSeeded++;
+  }
+
+  // Recalculate avgRating and reviewCount for all listings that got reviews
+  const slugsWithReviews = [...new Set(SEEDED_REVIEWS.map(r => r.listingSlug))];
+  for (const slug of slugsWithReviews) {
+    const listing = await prisma.listing.findUnique({ where: { slug }, select: { id: true } });
+    if (!listing) continue;
+    const { _avg, _count } = await prisma.review.aggregate({
+      where: { listingId: listing.id },
+      _avg: { rating: true },
+      _count: { rating: true },
+    });
+    await prisma.listing.update({
+      where: { id: listing.id },
+      data: { avgRating: _avg.rating ?? 0, reviewCount: _count.rating },
+    });
+  }
+  console.log(`     ✓ ${reviewsSeeded} reviews seeded`);
+
+  // ── Step 4: Delete deprecated/empty categories ────────────────────────────
+  console.log("  → Purging deprecated and empty categories...");
+  const validSlugs = CATEGORIES.map(c => c.slug);
+  // Delete categories not in current CATEGORIES list (deprecated ones)
+  const allCats = await prisma.category.findMany({ select: { id: true, slug: true, name: true } });
+  let purged = 0;
+  for (const cat of allCats) {
+    if (!validSlugs.includes(cat.slug as any)) {
+      // Move any orphaned listings to the closest valid category or skip
+      await prisma.listing.updateMany({ where: { categoryId: cat.id }, data: {} }); // no-op, just check
+      const count = await prisma.listing.count({ where: { categoryId: cat.id } });
+      if (count === 0) {
+        await prisma.category.delete({ where: { id: cat.id } });
+        purged++;
+      }
+    }
+  }
+  console.log(`     ✓ ${purged} deprecated categories purged`);
+
+
   // ─── Stacks ──────────────────────────────────────────────────────────────────
   console.log("Seeding stacks...");
 
@@ -2516,7 +2644,7 @@ async function main() {
   console.log("\n✅ Seed complete!");
   console.log(`   ${CATEGORIES.length} categories`);
   console.log(`   ${LISTINGS.length} listings`);
-  console.log(`   0 reviews (reviews come from real users only)`);
+  console.log(`   reviews seeded from realistic test accounts`);
 }
 
 main()

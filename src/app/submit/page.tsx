@@ -38,6 +38,7 @@ export default function SubmitPage() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [serverError, setServerError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
 
   const {
     register,
@@ -71,6 +72,7 @@ export default function SubmitPage() {
   const onSubmit = async (data: SubmitForm) => {
     setSubmitting(true);
     setServerError("");
+    setFieldErrors({});
     try {
       const res = await fetch("/api/listings", {
         method: "POST",
@@ -80,6 +82,7 @@ export default function SubmitPage() {
       const json = await res.json();
       if (!res.ok) {
         setServerError(json.error || "Something went wrong. Please try again.");
+        setFieldErrors(json.details || {});
         setSubmitting(false);
         return;
       }
@@ -163,9 +166,14 @@ export default function SubmitPage() {
           onSubmit={handleSubmit(onSubmit)}
           className="space-y-5 rounded-2xl border border-border bg-card p-6"
         >
-          {serverError && (
-            <div className="rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive">
-              {serverError}
+          {(serverError || Object.keys(fieldErrors).length > 0) && (
+            <div className="rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive space-y-1">
+              <p className="font-medium">{serverError || "Please fix the following errors:"}</p>
+              {Object.entries(fieldErrors).map(([field, msgs]) => (
+                <p key={field} className="text-xs">
+                  <span className="capitalize font-medium">{field.replace(/([A-Z])/g, " $1").trim()}</span>: {(msgs as string[]).join(", ")}
+                </p>
+              ))}
             </div>
           )}
 
