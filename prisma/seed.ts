@@ -4,6 +4,7 @@ import {
   ListingStatus,
   PremiumTier,
 } from "@prisma/client";
+import { TUTORIALS } from "../src/content/tutorials/index";
 
 const prisma = new PrismaClient();
 
