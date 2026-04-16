@@ -2382,6 +2382,27 @@ async function main() {
   });
   console.log("Admin account ready: hunterpadlo@gmail.com");
 
+  // ── Step 0: Clean up renamed/removed categories from old seed ───────────
+  // Rename old category slugs so their display names don't conflict with new
+  // INSERT operations. e.g. old slug="education" had name="Education & Learning"
+  // which is identical to the new slug="education-learning" — this triggers a
+  // unique constraint error on the `name` field.
+  const OLD_SLUG_RENAMES: Record<string, string> = {
+    "education":           "education-deprecated",
+    "code-dev-tools":      "code-dev-tools-deprecated",
+    "workflow-automation": "workflow-automation-deprecated",
+    "meeting-collab":      "meeting-collab-deprecated",
+    "sales-marketing":     "sales-marketing-deprecated",
+    "music-audio":         "music-audio-deprecated",
+    "video-audio":         "video-audio-deprecated",
+  };
+  for (const [oldSlug, tempSlug] of Object.entries(OLD_SLUG_RENAMES)) {
+    await prisma.category.updateMany({
+      where: { slug: oldSlug },
+      data: { slug: tempSlug, name: tempSlug },
+    });
+  }
+
   // ── Step 1: Upsert categories ────────────────────────────────────────────
   console.log("  → Upserting categories...");
   const categoryMap = new Map<string, string>(); // slug → id
